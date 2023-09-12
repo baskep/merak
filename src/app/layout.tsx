@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description: '测试网站',
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html>
       <body className={inter.className}>
@@ -22,3 +22,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   )
 }
+
+export default RootLayout

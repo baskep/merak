@@ -102,6 +102,7 @@ module.exports = {
     'no-param-reassign': 'off',
     'prefer-rest-params': 'off',
     'no-undef': 'off',
+    'react/no-unknown-property': 'off',
     '@typescript-eslint/camelcase': 'off',
     '@typescript-eslint/no-non-null-assertion': 'error',
     '@typescript-eslint/member-delimiter-style': [
