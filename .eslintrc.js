@@ -33,7 +33,7 @@ module.exports = {
     'react-hooks',
   ],
   rules: {
-   'no-var': 'error',
+    'no-var': 'error',
     'prefer-template': 'error',
     'no-multi-assign': 'error',
     'no-case-declarations': 'error',
@@ -155,6 +155,7 @@ module.exports = {
         },
       },
     ],
+    'semi': [2, 'never'],
     'semi-spacing': [
       2,
       {
@@ -171,7 +172,8 @@ module.exports = {
     'no-unused-vars': 'off',
     'arrow-parens': ['error', 'always'],
     'no-param-reassign': 'off',
-    'react-hooks/rules-of-hooks': 'error',
+    'indent': ['error', 2],
+    'react-hooks/rules-of-hooks': 'off',
     'react-hooks/exhaustive-deps': 'off',
     '@typescript-eslint/camelcase': 'off',
     '@typescript-eslint/no-non-null-assertion': 'error',

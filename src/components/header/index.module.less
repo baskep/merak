@@ -1,70 +1,67 @@
-.app_header {
-  width: 100%;
-  height: 450px;
-  background-color: #0a0a05;
-  .header_content {
-    position: sticky;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 74px;
-    background-color: transparent;
-  }
+.header_content {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 74px;
+  background-color: transparent;
+  z-index: 2;
+}
 
-  .header_left,
-  .header_right {
-    display: flex;
-    justify-self: flex-start;
-    align-items: center;
-  }
+.header_left,
+.header_right {
+  display: flex;
+  justify-self: flex-start;
+  align-items: center;
+}
 
-  .header_left {
-    margin-left: 40px;
-    flex: 1;
-    height: 100%;
+.header_left {
+  margin-left: 40px;
+  flex: 1;
+  height: 100%;
 
-    span {
-      margin-left: 10px;
-      font-size: 14px;
-
-      &:first-child {
-        margin-right: 10px;
-      }
-
-      &.air_quality {
-        color: rgb(148, 206, 111);
-      }
-    }
-  }
-
-  .header_right {
-
-    .tip {
-      font-size: 14px;
-      color: rgba(0, 0, 0, .8);
-    }
-  }
-
-  .header_right {
+  span {
     margin-left: 10px;
-    margin-right: 40px;
+    font-size: 14px;
+
+    &:first-child {
+      margin-right: 10px;
+    }
+
+    &.air_quality {
+      color: rgb(148, 206, 111);
+    }
+  }
+}
+
+.header_right {
+  margin-left: 10px;
+  margin-right: 40px;
+
+  .tip {
+    font-size: 14px;
+    color: #fff;
+  }
+}
+
+.header_item {
+  display: flex;
+  margin-right: 20px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+
+  &.weather {
+    color: rgb(136, 136, 136);
   }
 
-  .header_item {
-    display: flex;
-    margin-right: 20px;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    color: #ffffff;
-    &.weather {
-      color: rgb(136, 136, 136);
-    }
-    &.header_item_icon {
-      svg {
-        font-size: 20px;
-      }
+  &.header_item_icon {
+    svg {
+      font-size: 20px;
     }
   }
 }

@@ -2,6 +2,7 @@
 
 import Head from 'next/head'
 import Header from '@/components/header'
+import HeaderSearch from '@/components/header-search'
 
 const Home = () => {
   return (
@@ -14,7 +15,7 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-
+      <HeaderSearch />
     </>
   )
 }
