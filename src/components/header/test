@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect } from 'react'
-import { useDebounceFn } from 'ahooks'
+import { useState } from 'react'
+import { useScroll, useThrottleEffect } from 'ahooks'
 import Weather from '@/icons/weather'
 import { AiFillHome } from 'react-icons/ai'
 import { BsFire } from 'react-icons/bs'
@@ -9,24 +9,24 @@ import { BiLinkAlt } from 'react-icons/bi'
 
 import styles from './index.module.less'
 
+interface _Position {
+  left: number
+  top: number
+}
+
+type Position = _Position | undefined
+
 const Header = (): React.ReactNode => {
+  // const scrollRes: Position = useScroll(document)
 
-  // const scrollFunction = (e: React.UIEvent<HTMLElement>) => {
-  //   console.log(e)
-  // }
+  const [isShowBg, setIsShowBg] = useState<boolean>(false)
 
-  // const { run } = useDebounceFn(scrollFunction, { wait: 500 })
-
-  // useEffect(() => {
-  //   const ele = document.documentElement || document.body
-  //   window.addEventListener('scroll', run)
-  //   return () => {
-
-  //   }
-  // }, [])
+  // useThrottleEffect(() => {
+  //   setIsShowBg(scrollRes && scrollRes.top > 74)
+  // }, [scrollRes], { wait: 50 })
 
   return (
-    <header className={styles.header_content}>
+    <header className={`${styles.header_content} ${isShowBg ? styles.header_content_show : ''}`}>
       <div className={styles.header_left}>
         <div className={`${styles.header_item} ${styles.weather}`}>
           <span className={styles.text}>重庆</span>

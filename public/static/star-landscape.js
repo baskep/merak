@@ -174,9 +174,11 @@ function initEvent() {
       _mouseMoving = false
     }, 100)
   }
+
   window.onresize = () => {
     setCanvasSize()
   }
+
 }
 
 (() => {

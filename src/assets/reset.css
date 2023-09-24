@@ -173,6 +173,9 @@ button {
   overflow: visible;
   margin: 0;
   padding: 0;
+  border: 0;
+  outline: 0;
+  padding-inline: 0;
 }
 
 a {
