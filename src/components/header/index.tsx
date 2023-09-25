@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDebounceFn } from 'ahooks'
 import Weather from '@/icons/weather'
 import { AiFillHome } from 'react-icons/ai'
@@ -10,23 +10,24 @@ import { BiLinkAlt } from 'react-icons/bi'
 import styles from './index.module.less'
 
 const Header = (): React.ReactNode => {
+  const [isShowBg, setIsShowBg] = useState<boolean>(false)
 
-  // const scrollFunction = (e: React.UIEvent<HTMLElement>) => {
-  //   console.log(e)
-  // }
+  const scrollFunction = () => {
+    const ele = document.documentElement || document.body
+    setIsShowBg(ele.scrollTop > 74)
+  }
 
-  // const { run } = useDebounceFn(scrollFunction, { wait: 500 })
+  const { run } = useDebounceFn(scrollFunction, { wait: 50 })
 
-  // useEffect(() => {
-  //   const ele = document.documentElement || document.body
-  //   window.addEventListener('scroll', run)
-  //   return () => {
-
-  //   }
-  // }, [])
+  useEffect(() => {
+    window.addEventListener('scroll', run)
+    return () => {
+      window.removeEventListener('scroll', run)
+    }
+  }, [])
 
   return (
-    <header className={styles.header_content}>
+    <header className={`${styles.header_content} ${isShowBg ? styles.header_content_show : ''}`}>
       <div className={styles.header_left}>
         <div className={`${styles.header_item} ${styles.weather}`}>
           <span className={styles.text}>重庆</span>
