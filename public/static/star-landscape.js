@@ -184,5 +184,5 @@ function initEvent() {
 (() => {
   setCanvasSize()
   initBg()
-  initEvent()
+  // initEvent()
 })()

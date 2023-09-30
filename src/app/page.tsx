@@ -1,8 +1,15 @@
 'use client'
 
 import Head from 'next/head'
+
 import Header from '@/components/header'
 import HeaderSearch from '@/components/header-search'
+import TitleTag from '@/components/title-tag'
+import ToolCard from '@/components/tool-card'
+
+import styles from './index.module.less'
+
+const test = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 const Home = () => {
   return (
@@ -16,6 +23,19 @@ const Home = () => {
       </Head>
       <Header />
       <HeaderSearch />
+      <div className={styles.home_page_content}>
+        <div className={styles.home_content_item}>
+          <TitleTag title="生活实用" />
+
+          <div className={styles.card_content}>
+            {test.map((item) => {
+              return (
+                <ToolCard key={item} />
+              )
+            })}
+          </div>
+        </div>
+      </div>
     </>
   )
 }
