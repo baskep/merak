@@ -31,7 +31,7 @@ const nextConfig = () => {
         modifyVars: {},
       },
     },
-    // Disable css--modules component styling
+    serverComponentsExternalPackages: ["@prisma/client"],
     webpack(config) {
       //  Source: https://cwtuan.blogspot.com/2022/10/disable-css-module-in-nextjs-v1231-sept.html
       config.module.rules.forEach((rule) => {
