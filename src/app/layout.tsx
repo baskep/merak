@@ -6,11 +6,6 @@ import '@/assets/reset.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: '一个网站',
-  description: '测试网站',
-}
-
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html>

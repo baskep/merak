@@ -9,8 +9,8 @@ import { BiLinkAlt } from 'react-icons/bi'
 
 import styles from './index.module.less'
 
-const Header = (): React.ReactNode => {
-  const [isShowBg, setIsShowBg] = useState<boolean>(false)
+const Header = ({ isDefaultShow = false }): React.ReactNode => {
+  const [isShowBg, setIsShowBg] = useState<boolean>(isDefaultShow)
 
   const scrollFunction = () => {
     const ele = document.documentElement || document.body
