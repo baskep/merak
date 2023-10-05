@@ -41,7 +41,7 @@ const Header = (): React.ReactNode => {
         </div>
         <div className={`${styles.header_item} ${styles.header_item_icon}`}>
           <BsFire />
-          <span>今日热榜</span>
+          <span>消息订阅</span>
         </div>
         <div className={`${styles.header_item} ${styles.header_item_icon}`}>
           <BiLinkAlt />
