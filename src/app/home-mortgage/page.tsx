@@ -1,5 +1,9 @@
 'use client'
+
 import Header from '@/components/header'
+import ToolContentLayout from '@/components/tool-content-layout'
+
+import styles from './index.module.less'
 
 const HomeMortgage = (): React.ReactNode => {
   return (
@@ -9,6 +13,11 @@ const HomeMortgage = (): React.ReactNode => {
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="keywords" content="等额本息和等额本金哪个划算,房贷计算器2023年最新版,贷款计算器" />
       <Header isDefaultShow={true} />
+      <ToolContentLayout>
+        <div className={styles.home_mortgage_content}>
+          23
+        </div>
+      </ToolContentLayout>
     </>
   )
 }
