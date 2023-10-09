@@ -14,7 +14,7 @@ const Header = ({ isDefaultShow = false }): React.ReactNode => {
 
   const scrollFunction = () => {
     const ele = document.documentElement || document.body
-    setIsShowBg(ele.scrollTop > 74)
+    setIsShowBg(['/'].includes(location.pathname) ? ele.scrollTop > 74 : true)
   }
 
   const { run } = useDebounceFn(scrollFunction, { wait: 50 })

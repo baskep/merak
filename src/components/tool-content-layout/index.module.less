@@ -10,8 +10,8 @@
   }
 
   .test_img {
-    width: 200px;
-    height: 200px;
+    min-width: 220px;
+    height: 220px;
     position: relative;
     box-shadow: 0 30px 20px -20px rgba(0, 0, 0, .15);
     background: #e6e8ed;
@@ -19,6 +19,42 @@
   }
 
   .header_info {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
     margin-left: 20px;
+    width: 600px;
+    height: 220px;
+
+    .tool_path {
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      color: #f1404b;
+
+      span, svg {
+        margin-right: 4px;
+      }
+
+      span {
+        padding: 3px 4px;
+        border-radius: 4px;
+        color: #ffffff;
+        background-color: #f1404b;
+      }
+
+    }
+
+    .tool_title {
+      margin-top: 20px;
+      font-size: 26px;
+      font-weight: 500;
+    }
+
+    .tool_description {
+      margin-top: 20px;
+      font-size: 18px;
+    }
   }
 }
