@@ -50,41 +50,6 @@ module.exports = {
     'no-confusing-arrow': 'error',
     'quotes': ['error', 'single'],
     'jsx-quotes': ['error', 'prefer-double'],
-    'react/prop-types': [
-      'warn',
-      {
-        'skipUndeclared': true,
-      },
-    ],
-    'react/jsx-handler-names': [
-      'off',
-      {
-        'eventHandlerPrefix': '(handle|on|set)',
-        'checkLocalVariables': true,
-      },
-    ],
-    'react/jsx-closing-tag-location': [2],
-    'react/jsx-closing-bracket-location': [1, 'line-aligned'],
-    'react/jsx-key': 'error',
-    'react/jsx-wrap-multilines': [
-      'error',
-      {
-        'declaration': 'parens-new-line',
-        'assignment': 'parens-new-line',
-        'return': 'parens-new-line',
-        'arrow': 'parens-new-line',
-        'condition': 'parens-new-line',
-        'logical': 'parens-new-line',
-        'prop': 'ignore',
-      },
-    ],
-    'react/self-closing-comp': [
-      'error',
-      {
-        'component': true,
-        'html': true,
-      },
-    ],
     'space-infix-ops': [
       'error',
       {
@@ -173,6 +138,41 @@ module.exports = {
     'arrow-parens': ['error', 'always'],
     'no-param-reassign': 'off',
     'indent': ['error', 2],
+    'react/prop-types': [
+      'warn',
+      {
+        'skipUndeclared': true,
+      },
+    ],
+    'react/jsx-handler-names': [
+      'off',
+      {
+        'eventHandlerPrefix': '(handle|on|set)',
+        'checkLocalVariables': true,
+      },
+    ],
+    'react/jsx-closing-tag-location': [2],
+    'react/jsx-closing-bracket-location': [1, 'line-aligned'],
+    'react/jsx-key': 'error',
+    'react/jsx-wrap-multilines': [
+      'error',
+      {
+        'declaration': 'parens-new-line',
+        'assignment': 'parens-new-line',
+        'return': 'parens-new-line',
+        'arrow': 'parens-new-line',
+        'condition': 'parens-new-line',
+        'logical': 'parens-new-line',
+        'prop': 'ignore',
+      },
+    ],
+    'react/self-closing-comp': [
+      'error',
+      {
+        'component': true,
+        'html': true,
+      },
+    ],
     'react-hooks/rules-of-hooks': 'off',
     'react-hooks/exhaustive-deps': 'off',
     '@typescript-eslint/camelcase': 'off',

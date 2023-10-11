@@ -32,7 +32,9 @@ const ToolContentLayout = (props: ToolLayoutInterface): React.ReactNode => {
             </p>
           </div>
         </div>
-        {children}
+        <div className={styles.tool_detail_coontent}>
+          {children}
+        </div>
       </div>
     </>
   )

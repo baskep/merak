@@ -1,11 +1,36 @@
 'use client'
 
+import { useState } from 'react'
+import { Radio } from 'antd'
+import type { RadioChangeEvent } from 'antd'
+
 import Header from '@/components/header'
 import ToolContentLayout from '@/components/tool-content-layout'
+import CommercialLoans from '@/components/home-mortgage/commercial-loans'
 
 import styles from './index.module.less'
 
+const mortgageOption = [{
+  label: '商业贷款',
+  value: '1',
+}, {
+  label: '公积金贷款',
+  value: '2',
+}, {
+  label: '组合贷款',
+  value: '3',
+}, {
+  label: '提前还贷',
+  value: '4',
+}]
+
 const HomeMortgage = (): React.ReactNode => {
+  const [activeKey, setActiveKey] = useState<string>('1')
+
+  const handleChangeMortgageClassify = ({ target: { value } }: RadioChangeEvent) => {
+    setActiveKey(value)
+  }
+
   return (
     <>
       <title>等额本息和等额本金哪个划算-房贷计算器-房贷计算器2023年最新版</title>
@@ -15,7 +40,18 @@ const HomeMortgage = (): React.ReactNode => {
       <Header isDefaultShow={true} />
       <ToolContentLayout>
         <div className={styles.home_mortgage_content}>
-          23
+          <div className={styles.mortgage_classify}>
+            <Radio.Group
+              options={mortgageOption}
+              onChange={handleChangeMortgageClassify}
+              value={activeKey}
+              buttonStyle="solid"
+              optionType="button"
+            />
+          </div>
+          <div className={styles.mortgage_content}>
+            <CommercialLoans />
+          </div>
         </div>
       </ToolContentLayout>
     </>
