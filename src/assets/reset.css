@@ -187,3 +187,8 @@ body {
   color: #282a2d;
   background: #f9f9f9;
 }
+
+:where(.css-dev-only-do-not-override-17fnh90).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled),
+:where(.css-dev-only-do-not-override-17fnh90).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover {
+  color: #ffffff;
+}

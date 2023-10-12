@@ -10,7 +10,7 @@ import styles from './index.module.less'
 
 const testToolCard = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-const testHotCard = [1, 2, 3, 4]
+const testHotCard = [1, 2, 3]
 
 const Home = (): React.ReactNode => {
 
@@ -19,13 +19,13 @@ const Home = (): React.ReactNode => {
       <Header />
       <HeaderSearch />
       <div className={styles.home_page_wrap}>
-        <div className={styles.home_hot_content}>
+        {/* <div className={styles.home_hot_content}>
           {testHotCard.map((item) => {
             return (
               <HotCard key={item} />
             )
           })}
-        </div>
+        </div> */}
         <div className={styles.home_page_content}>
           <div className={styles.home_content_item}>
             <TitleTag title="生活实用" />

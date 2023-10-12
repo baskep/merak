@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 import { useDebounceFn } from 'ahooks'
 import Weather from '@/icons/weather'
 import { AiFillHome } from 'react-icons/ai'
-import { BsFire } from 'react-icons/bs'
 import { BiLinkAlt } from 'react-icons/bi'
+// import { BsFire } from 'react-icons/bs'
 
 import styles from './index.module.less'
 
@@ -39,10 +39,10 @@ const Header = ({ isDefaultShow = false }): React.ReactNode => {
           <AiFillHome />
           <span>首页</span>
         </div>
-        <div className={`${styles.header_item} ${styles.header_item_icon}`}>
+        {/* <div className={`${styles.header_item} ${styles.header_item_icon}`}>
           <BsFire />
           <span>消息订阅</span>
-        </div>
+        </div> */}
         <div className={`${styles.header_item} ${styles.header_item_icon}`}>
           <BiLinkAlt />
           <span>友情链接</span>

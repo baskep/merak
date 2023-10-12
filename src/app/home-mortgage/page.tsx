@@ -11,17 +11,14 @@ import CommercialLoans from '@/components/home-mortgage/commercial-loans'
 import styles from './index.module.less'
 
 const mortgageOption = [{
-  label: '商业贷款',
+  label: '普通贷款',
   value: '1',
 }, {
-  label: '公积金贷款',
+  label: '组合贷款',
   value: '2',
 }, {
-  label: '组合贷款',
-  value: '3',
-}, {
   label: '提前还贷',
-  value: '4',
+  value: '3',
 }]
 
 const HomeMortgage = (): React.ReactNode => {
@@ -45,7 +42,6 @@ const HomeMortgage = (): React.ReactNode => {
               options={mortgageOption}
               onChange={handleChangeMortgageClassify}
               value={activeKey}
-              buttonStyle="solid"
               optionType="button"
             />
           </div>
