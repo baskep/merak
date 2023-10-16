@@ -7,7 +7,8 @@ import { Dayjs } from 'dayjs'
 
 import Header from '@/components/header'
 import ToolContentLayout from '@/components/tool-content-layout'
-import CommercialLoans from '@/components/home-mortgage/commercial-loans'
+import CommercialLoans from '@/components/home-loans/commercial-loans'
+import { submitCommercialLoans } from '@/service/home-loans'
 
 import styles from './index.module.less'
 
@@ -40,7 +41,7 @@ const HomeMortgage = (): React.ReactNode => {
   }
 
   const handleSubmitCommercialLoans = (value: Field): void => {
-    console.log(value)
+    submitCommercialLoans(value)
   }
 
   return (
