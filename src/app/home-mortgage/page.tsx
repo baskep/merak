@@ -3,12 +3,23 @@
 import { useState } from 'react'
 import { Radio } from 'antd'
 import type { RadioChangeEvent } from 'antd'
+import { Dayjs } from 'dayjs'
 
 import Header from '@/components/header'
 import ToolContentLayout from '@/components/tool-content-layout'
 import CommercialLoans from '@/components/home-mortgage/commercial-loans'
 
 import styles from './index.module.less'
+
+// 表单字段
+interface Field {
+  amount?: number
+  periods?: number
+  loanType?: number
+  firsthMomth?: Dayjs
+  rateType?: number
+  rateValue?: number
+}
 
 const mortgageOption = [{
   label: '普通贷款',
@@ -24,8 +35,12 @@ const mortgageOption = [{
 const HomeMortgage = (): React.ReactNode => {
   const [activeKey, setActiveKey] = useState<string>('1')
 
-  const handleChangeMortgageClassify = ({ target: { value } }: RadioChangeEvent) => {
+  const handleChangeMortgageClassify = ({ target: { value } }: RadioChangeEvent): void => {
     setActiveKey(value)
+  }
+
+  const handleSubmitCommercialLoans = (value: Field): void => {
+    console.log(value)
   }
 
   return (
@@ -46,7 +61,7 @@ const HomeMortgage = (): React.ReactNode => {
             />
           </div>
           <div className={styles.mortgage_content}>
-            <CommercialLoans />
+            <CommercialLoans onSubmitCommercialLoans={handleSubmitCommercialLoans} />
           </div>
         </div>
       </ToolContentLayout>

@@ -4,11 +4,11 @@ import { TbCategory } from 'react-icons/tb'
 
 import styles from './index.module.less'
 
-interface TitleInterface {
+interface TitleProps {
   title: string
 }
 
-const TitleTag = (props: TitleInterface): React.ReactNode => {
+const TitleTag = (props: TitleProps): React.ReactNode => {
   const { title } = props
   return (
     <div className={styles.title_tag_wrap}>

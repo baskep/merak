@@ -32,7 +32,7 @@ const defaultTabItems = [
   },
 ]
 
-type TabItem = {
+interface TabItem {
   tab: string
   label: string
 }
@@ -40,7 +40,7 @@ type TabItem = {
 const headerSearch = (): React.ReactNode => {
   const [activeTab, setActiveTab] = useState<string>('1')
 
-  const handleClickSearchAreaTab = (item: TabItem) => {
+  const handleClickSearchAreaTab = (item: TabItem): void => {
     setActiveTab(item.tab)
   }
 

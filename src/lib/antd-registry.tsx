@@ -32,14 +32,9 @@ const StyledComponentsRegistry = ({ children }: { children: React.ReactNode }) =
     <StyleProvider >
       <ConfigProvider
         theme={{
-          components: {
-            Radio: {
-              buttonBg: '#ffffff',
-              buttonCheckedBg: '#007bff',
-              buttonColor: '#282a2d',
-              colorBorder: '#dee2e6',
-              colorPrimary: '#007bff',
-            },
+          token: {
+            colorBorder: '#dee2e6',
+            colorPrimary: '#007bff',
           },
         }}
         locale={zhCN}
