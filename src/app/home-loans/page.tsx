@@ -3,24 +3,15 @@
 import { useState } from 'react'
 import { Radio } from 'antd'
 import type { RadioChangeEvent } from 'antd'
-import { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 
 import Header from '@/components/header'
 import ToolContentLayout from '@/components/tool-content-layout'
 import CommercialLoans from '@/components/home-loans/commercial-loans'
 import { submitCommercialLoans } from '@/service/home-loans'
+import { LoansField } from '@/types/interface'
 
 import styles from './index.module.less'
-
-// 表单字段
-interface Field {
-  amount?: number
-  periods?: number
-  loanType?: number
-  firsthMomth?: Dayjs
-  rateType?: number
-  rateValue?: number
-}
 
 const mortgageOption = [{
   label: '普通贷款',
@@ -40,8 +31,15 @@ const HomeMortgage = (): React.ReactNode => {
     setActiveKey(value)
   }
 
-  const handleSubmitCommercialLoans = (value: Field): void => {
-    submitCommercialLoans(value)
+  const handleSubmitCommercialLoans = (value: LoansField): void => {
+    const { firsthMomth } = value
+    const params = {
+      ...value,
+      year: dayjs(firsthMomth).year(),
+      momth: dayjs(firsthMomth).month(),
+    }
+    delete params.firsthMomth
+    submitCommercialLoans(params)
   }
 
   return (

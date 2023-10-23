@@ -11,30 +11,10 @@ import {
   Row,
   Col,
 } from 'antd'
-import dayjs, { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
+import { LoansField, LoansProps, PeriodsField } from '@/types/interface'
 
 import styles from './index.module.less'
-
-// 表单字段
-interface Field {
-  amount?: number
-  periods?: number
-  loanType?: number
-  firsthMomth?: Dayjs
-  rateType?: number
-  rateValue?: number
-}
-
-// 传入的props定义
-interface LoansProps {
-  onSubmitCommercialLoans(value: Field): void
-}
-
-// 分期选项
-interface PeriodsType {
-  value: number
-  label: string
-}
 
 // 贷款方式
 const rateType = [{
@@ -64,7 +44,7 @@ const initialValues = {
 const CommercialLoans = (props: LoansProps): React.ReactNode => {
   const { onSubmitCommercialLoans } = props
 
-  const [periods, setPeriods] = useState<PeriodsType[]>([])
+  const [periods, setPeriods] = useState<PeriodsField[]>([])
 
   useEffect(() => {
     const _periods = []
@@ -77,7 +57,7 @@ const CommercialLoans = (props: LoansProps): React.ReactNode => {
     setPeriods(_periods)
   }, [])
 
-  const handleSubmitCommercialLoans = (value: Field): void => {
+  const handleSubmitCommercialLoans = (value: LoansField): void => {
     onSubmitCommercialLoans(value)
   }
 
@@ -92,7 +72,7 @@ const CommercialLoans = (props: LoansProps): React.ReactNode => {
       >
         <Row>
           <Col span={11}>
-            <Form.Item<Field>
+            <Form.Item<LoansField>
               labelCol={{ span: 6 }}
               label="贷款金额(万元)"
               name="amount"
@@ -106,7 +86,7 @@ const CommercialLoans = (props: LoansProps): React.ReactNode => {
             </Form.Item>
           </Col>
           <Col span={11} offset={2}>
-            <Form.Item<Field>
+            <Form.Item<LoansField>
               labelCol={{ span: 6 }}
               label="贷款期数"
               name="periods"
@@ -122,7 +102,7 @@ const CommercialLoans = (props: LoansProps): React.ReactNode => {
 
         <Row>
           <Col span={11}>
-            <Form.Item<Field>
+            <Form.Item<LoansField>
               labelCol={{ span: 6 }}
               label="贷款方式"
               name="loanType"
@@ -135,7 +115,7 @@ const CommercialLoans = (props: LoansProps): React.ReactNode => {
             </Form.Item>
           </Col>
           <Col span={11} offset={2}>
-            <Form.Item<Field>
+            <Form.Item<LoansField>
               labelCol={{ span: 6 }}
               label="首次还款月份"
               name="firsthMomth"
@@ -153,7 +133,7 @@ const CommercialLoans = (props: LoansProps): React.ReactNode => {
 
         <Row>
           <Col span={11}>
-            <Form.Item<Field>
+            <Form.Item<LoansField>
               labelCol={{ span: 6 }}
               label="利率模式"
               name="rateType"
@@ -166,7 +146,7 @@ const CommercialLoans = (props: LoansProps): React.ReactNode => {
             </Form.Item>
           </Col>
           <Col span={11} offset={2}>
-            <Form.Item<Field>
+            <Form.Item<LoansField>
               labelCol={{ span: 6 }}
               label="基准利率%"
               name="rateValue"

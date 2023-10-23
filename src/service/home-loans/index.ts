@@ -1,15 +1,6 @@
-import { Dayjs } from 'dayjs'
+import { LoansField } from '@/types/interface'
 
-interface Field {
-  amount?: number
-  periods?: number
-  loanType?: number
-  firsthMomth?: Dayjs
-  rateType?: number
-  rateValue?: number
-}
-
-export const submitCommercialLoans = async (formData: Field) => {
+export const submitCommercialLoans = async (formData: LoansField) => {
   try {
     const res = await fetch('/api/home-loans/commercial-loans', {
       method: 'post',

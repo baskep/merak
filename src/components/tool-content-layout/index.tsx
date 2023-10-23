@@ -2,12 +2,9 @@
 
 import { AiOutlineRight } from 'react-icons/ai'
 import ToolContentAnimatie from '@/components/tool-content-animate'
+import { ToolLayoutProps } from '@/types/interface'
 
 import styles from './index.module.less'
-
-interface ToolLayoutProps {
-  children?: React.ReactNode
-}
 
 const ToolContentLayout = (props: ToolLayoutProps): React.ReactNode => {
   const { children } = props

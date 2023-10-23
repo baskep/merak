@@ -1,12 +1,9 @@
 'use client'
 
 import { TbCategory } from 'react-icons/tb'
+import { TitleProps } from '@/types/interface'
 
 import styles from './index.module.less'
-
-interface TitleProps {
-  title: string
-}
 
 const TitleTag = (props: TitleProps): React.ReactNode => {
   const { title } = props
