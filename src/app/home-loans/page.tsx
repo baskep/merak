@@ -36,7 +36,7 @@ const HomeMortgage = (): React.ReactNode => {
     const params = {
       ...value,
       year: dayjs(firsthMomth).year(),
-      momth: dayjs(firsthMomth).month(),
+      month: dayjs(firsthMomth).month() + 1,
     }
     delete params.firsthMomth
     submitCommercialLoans(params)
