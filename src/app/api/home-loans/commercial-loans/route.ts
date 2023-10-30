@@ -33,7 +33,7 @@ function amountInterestEqual(
   const totalRepaymentAmount = chain(totalAllInterest).add(totalAmount).done()
 
   // 剩余还款本金
-  let resetRepaymentAmount = totalAmount
+  let restRepaymentAmount = totalAmount
 
   // 具体每月明细
   const monthAmountArr = []
@@ -71,14 +71,14 @@ function amountInterestEqual(
     ), 2)
 
     // 每月还款后剩余本金
-    resetRepaymentAmount = round(chain(resetRepaymentAmount).subtract(monthAmount).done(), 2)
+    restRepaymentAmount = round(chain(restRepaymentAmount).subtract(monthAmount).done(), 2)
 
     monthAmountArr.push({
       monthName: `${year}年${month}月`,
       monthInterest,
       monthAmount,
       totalMonthAmount,
-      resetRepaymentAmount,
+      restRepaymentAmount,
     })
   }
 
@@ -100,14 +100,78 @@ function amountEqual(
   const totalMonth = chain(periods).multiply(12).done()
   const totalAmount = chain(amount).multiply(10000).done()
 
-  // 已还本金
-  const refundAmount = 0
-
   // 每月应还本金
-  const monthAmount = round(totalAmount / totalMonth, 2)
+  // 每月应还本金 = 贷款本金 ÷ 还款月数
+  const monthPrincipal = round(totalAmount / totalMonth, 2)
+
+  // 已还本金
+  let refundAmount = 0
+
+  // 每月递减额
+  // 每月递减额 = 每月应还本金 × 月利率 = 贷款本金 ÷ 还款月数 × 月利率
+  // const monthDecrease = round(chain(monthPrincipal).multiply(monthRate).done(), 2)
 
   // 总利息
-  const totalAllInterest = ''
+  // 总利息 = ((总贷款额 ÷ 还款月数 + 总贷款额 × 月利率) + 总贷款额 ÷ 还款月数 × (1 + 月利率)) ÷ 2 × 还款月数 - 总贷款额
+  const totalInterest = round(
+    (
+      chain(
+        chain(totalAmount)
+          .multiply(monthRate)
+          .add(monthPrincipal)
+          .done(),
+      )
+        .add(totalAmount / totalMonth * (1 + monthRate))
+        .done()) / 2 * totalMonth - totalAmount,
+    2,
+  )
+  // 还款总额
+  // 还款总额 = 总利息 + 本金
+  const totalRepaymentAmount = chain(totalInterest).add(totalAmount).done()
+
+  // 剩余本金
+  let restRepaymentAmount = totalAmount
+
+  // 具体每月明细
+  const monthAmountArr = []
+
+  let _month = month - 1
+  for (let i = 1; i <= totalMonth; i++) {
+    if (_month > 12) {
+      _month = 1
+      year += 1
+    }
+
+    // 已还本金
+    refundAmount = round(chain(monthPrincipal).multiply(i - 1).done(), 2)
+
+    // 每月还款额
+    const totalMonthAmount = round(chain(totalAmount - refundAmount).multiply(monthRate).add(monthPrincipal).done(), 2)
+
+    // 每月利息
+    const monthInterest = round(chain(totalAmount - refundAmount).multiply(monthRate).done(), 2)
+
+    // 更新剩余本金
+    refundAmount = round(chain(monthPrincipal).multiply(i).done(), 2)
+    restRepaymentAmount = round(chain(totalAmount).subtract(refundAmount).done(), 2)
+
+    if (restRepaymentAmount < 0) {
+      restRepaymentAmount = 0
+    }
+
+    monthAmountArr.push({
+      monthName: `${year}年${month}月`,
+      monthAmount: monthPrincipal,
+      monthInterest,
+      totalMonthAmount,
+      restRepaymentAmount,
+    })
+  }
+
+  return {
+    monthAmountArr,
+    totalRepaymentAmount,
+  }
 }
 
 export async function POST(req: Request) {
