@@ -8,6 +8,8 @@ import dayjs from 'dayjs'
 import Header from '@/components/header'
 import ToolContentLayout from '@/components/tool-content-layout'
 import CommercialLoans from '@/components/home-loans/commercial-loans'
+import SyndicatedLoans from '@/components/home-loans/syndicated-loans'
+import RepayLoans from '@/components/home-loans/repay-loans'
 import { submitCommercialLoans } from '@/service/home-loans'
 import { LoansField } from '@/types/interface'
 
@@ -60,7 +62,9 @@ const HomeMortgage = (): React.ReactNode => {
             />
           </div>
           <div className={styles.mortgage_content}>
-            <CommercialLoans onSubmitCommercialLoans={handleSubmitCommercialLoans} />
+            {activeKey === '1' && <CommercialLoans onSubmitCommercialLoans={handleSubmitCommercialLoans} />}
+            {activeKey === '2' && <SyndicatedLoans />}
+            {activeKey === '3' && <RepayLoans /> }
           </div>
         </div>
       </ToolContentLayout>
