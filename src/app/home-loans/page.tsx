@@ -4,14 +4,18 @@ import { useState } from 'react'
 import { Radio } from 'antd'
 import type { RadioChangeEvent } from 'antd'
 import dayjs from 'dayjs'
+import { useRequest } from 'ahooks'
 
 import Header from '@/components/header'
 import ToolContentLayout from '@/components/tool-content-layout'
 import CommercialLoans from '@/components/home-loans/commercial-loans'
 import SyndicatedLoans from '@/components/home-loans/syndicated-loans'
 import RepayLoans from '@/components/home-loans/repay-loans'
+import RuleContent from '@/components/rule-content'
+
 import { submitCommercialLoans } from '@/service/home-loans'
-import { LoansField } from '@/types/interface'
+import { LoansField, CommercialLoansResponse, RuleItem } from '@/types/interface'
+import { commercialLoansRule } from '@/config/home-loans'
 
 import styles from './index.module.less'
 
@@ -26,14 +30,27 @@ const mortgageOption = [{
   value: '3',
 }]
 
-const HomeMortgage = (): React.ReactNode => {
+const HomeLoans = (): React.ReactNode => {
   const [activeKey, setActiveKey] = useState<string>('1')
+  const [commercialLoansRes, setCommercialLoans] = useState<CommercialLoansResponse[]>([])
+  const [rule, setRule] = useState<RuleItem[]>(commercialLoansRule)
 
-  const handleChangeMortgageClassify = ({ target: { value } }: RadioChangeEvent): void => {
+  const { loading, run: getCommercialLoans } = useRequest(submitCommercialLoans, {
+    manual: true,
+    onSuccess(res) {
+      if (res?.code === 200) {
+        setCommercialLoans(res?.data || {})
+      }
+    },
+  })
+
+  const handleChangeMortgageClassify = ({ target: { value } }: RadioChangeEvent) => {
+    if (loading) return
     setActiveKey(value)
+    setCommercialLoans([])
   }
 
-  const handleSubmitCommercialLoans = (value: LoansField): void => {
+  const handleSubmitCommercialLoans = async (value: LoansField) => {
     const { firsthMomth } = value
     const params = {
       ...value,
@@ -41,7 +58,7 @@ const HomeMortgage = (): React.ReactNode => {
       month: dayjs(firsthMomth).month() + 1,
     }
     delete params.firsthMomth
-    submitCommercialLoans(params)
+    getCommercialLoans(params)
   }
 
   return (
@@ -52,8 +69,8 @@ const HomeMortgage = (): React.ReactNode => {
       <meta name="keywords" content="等额本息和等额本金哪个划算,房贷计算器2023年最新版,贷款计算器" />
       <Header isDefaultShow={true} />
       <ToolContentLayout>
-        <div className={styles.home_mortgage_content}>
-          <div className={styles.mortgage_classify}>
+        <div className={styles.home_loans_content}>
+          <div className={styles.loans_classify}>
             <Radio.Group
               options={mortgageOption}
               onChange={handleChangeMortgageClassify}
@@ -61,15 +78,22 @@ const HomeMortgage = (): React.ReactNode => {
               optionType="button"
             />
           </div>
-          <div className={styles.mortgage_content}>
-            {activeKey === '1' && <CommercialLoans onSubmitCommercialLoans={handleSubmitCommercialLoans} />}
+          <div className={styles.loans_content}>
+            {activeKey === '1' && (
+              <CommercialLoans
+                loading={loading}
+                commercialLoansRes={commercialLoansRes}
+                onSubmitCommercialLoans={handleSubmitCommercialLoans}
+              />
+            )}
             {activeKey === '2' && <SyndicatedLoans />}
             {activeKey === '3' && <RepayLoans /> }
           </div>
         </div>
       </ToolContentLayout>
+      <RuleContent rule={rule} />
     </>
   )
 }
 
-export default HomeMortgage
+export default HomeLoans

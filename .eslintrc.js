@@ -138,6 +138,7 @@ module.exports = {
     'arrow-parens': ['error', 'always'],
     'no-param-reassign': 'off',
     'indent': ['error', 2],
+    'react/no-unescaped-entities': 'off',
     'react/prop-types': [
       'warn',
       {

@@ -34,7 +34,7 @@ const loanType = [{
 // 表单初始化值
 const initialValues = {
   amount: 5,
-  periods: 10,
+  periods: 30,
   loanType: 1,
   firsthMomth: dayjs(),
   rateType: 1,
@@ -42,7 +42,7 @@ const initialValues = {
 }
 
 const CommercialLoans = (props: LoansProps): React.ReactNode => {
-  const { onSubmitCommercialLoans } = props
+  const { loading, commercialLoansRes, onSubmitCommercialLoans } = props
 
   const [periods, setPeriods] = useState<PeriodsField[]>([])
 
@@ -57,7 +57,7 @@ const CommercialLoans = (props: LoansProps): React.ReactNode => {
     setPeriods(_periods)
   }, [])
 
-  const handleSubmitCommercialLoans = (value: LoansField): void => {
+  const handleSubmitCommercialLoans = (value: LoansField) => {
     onSubmitCommercialLoans(value)
   }
 
@@ -162,7 +162,12 @@ const CommercialLoans = (props: LoansProps): React.ReactNode => {
 
         <Row>
           <Col className={styles.submit_col} span={24}>
-            <Button type="primary" htmlType="submit" size="large">
+            <Button
+              type="primary"
+              htmlType="submit"
+              size="large"
+              loading={loading}
+            >
               立即计算
             </Button>
           </Col>

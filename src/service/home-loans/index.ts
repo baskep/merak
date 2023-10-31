@@ -13,6 +13,6 @@ export const submitCommercialLoans = async (formData: LoansField) => {
     const data = await res.json()
     return data
   } catch (error) {
-    console.log('Error in updating Product (service) =>', error)
+    console.log('error', error)
   }
 }

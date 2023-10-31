@@ -28,6 +28,8 @@ export interface LoansField {
 
 // 普通贷款组件 props定义
 export interface LoansProps {
+  loading: boolean
+  commercialLoansRes: CommercialLoansResponse[]
   onSubmitCommercialLoans(value: LoansField): void
 }
 
@@ -35,4 +37,25 @@ export interface LoansProps {
 export interface PeriodsField {
   value: number
   label: string
+}
+
+interface LoansResponseItem {
+  monthName: string
+  monthAmount: number
+  monthInterest: number
+  totalMonthAmount: number
+  restRepaymentAmount: number
+}
+
+// 普通贷款响应结果
+export interface CommercialLoansResponse {
+  monthAmountArr: LoansResponseItem[]
+  totalRepaymentAmount: number
+  totalAllInterest: number
+}
+
+// 规则定义
+export interface RuleItem {
+  title: string
+  text: string[]
 }

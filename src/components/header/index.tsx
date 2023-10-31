@@ -12,7 +12,7 @@ import styles from './index.module.less'
 const Header = ({ isDefaultShow = false }): React.ReactNode => {
   const [isShowBg, setIsShowBg] = useState<boolean>(isDefaultShow)
 
-  const scrollFunction = (): void => {
+  const scrollFunction = () => {
     const ele = document.documentElement || document.body
     setIsShowBg(['/'].includes(location.pathname) ? ele.scrollTop > 74 : true)
   }

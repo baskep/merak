@@ -85,6 +85,7 @@ function amountInterestEqual(
   return {
     monthAmountArr,
     totalRepaymentAmount,
+    totalAllInterest,
   }
 }
 
@@ -113,7 +114,7 @@ function amountEqual(
 
   // 总利息
   // 总利息 = ((总贷款额 ÷ 还款月数 + 总贷款额 × 月利率) + 总贷款额 ÷ 还款月数 × (1 + 月利率)) ÷ 2 × 还款月数 - 总贷款额
-  const totalInterest = round(
+  const totalAllInterest = round(
     (
       chain(
         chain(totalAmount)
@@ -127,7 +128,7 @@ function amountEqual(
   )
   // 还款总额
   // 还款总额 = 总利息 + 本金
-  const totalRepaymentAmount = chain(totalInterest).add(totalAmount).done()
+  const totalRepaymentAmount = chain(totalAllInterest).add(totalAmount).done()
 
   // 剩余本金
   let restRepaymentAmount = totalAmount
@@ -171,23 +172,26 @@ function amountEqual(
   return {
     monthAmountArr,
     totalRepaymentAmount,
+    totalAllInterest,
   }
 }
 
 export async function POST(req: Request) {
   try {
-    const data = await req.json()
+    const params = await req.json()
 
-    const { amount, loanType, month, periods, rateType, rateValue, year } = data
+    const { amount, loanType, month, periods, rateValue, year } = params
 
-    const res = amountInterestEqual(amount, periods, rateValue, year, month)
+    let data = {}
+    if (loanType === 1) {
+      data = amountInterestEqual(amount, periods, rateValue, year, month)
+    } else {
+      data = amountEqual(amount, periods, rateValue, year, month)
+    }
 
-    const res1 = amountEqual(amount, periods, rateValue, year, month)
-
-    return NextResponse.json({ success: false, message: 'You are not authorized.' })
+    return NextResponse.json({ code: 200, message: '', data })
 
   } catch (error) {
-    console.log('Error in adding a new category:', error)
-    return NextResponse.json({ success: false, message: 'Something went wrong. Please try again!' })
+    return NextResponse.json({ code: 500, message: '请示失败，请稍后再试', data: {} })
   }
 }

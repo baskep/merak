@@ -37,7 +37,7 @@ const defaultTabItems = [
 const headerSearch = (): React.ReactNode => {
   const [activeTab, setActiveTab] = useState<string>('1')
 
-  const handleClickSearchAreaTab = (item: SearchTabItem): void => {
+  const handleClickSearchAreaTab = (item: SearchTabItem) => {
     setActiveTab(item.tab)
   }
 
