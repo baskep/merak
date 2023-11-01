@@ -59,3 +59,9 @@ export interface RuleItem {
   title: string
   text: string[]
 }
+
+// 贷款计算信息数据遍历时的定义
+export interface BasicInfoItem {
+  name: string
+  prop: string
+}

@@ -10,6 +10,7 @@ import Header from '@/components/header'
 import ToolContentLayout from '@/components/tool-content-layout'
 import CommercialLoans from '@/components/home-loans/commercial-loans'
 import SyndicatedLoans from '@/components/home-loans/syndicated-loans'
+import LoansBasicInfo from '@/components/home-loans/loans-basic-info'
 import RepayLoans from '@/components/home-loans/repay-loans'
 import RuleContent from '@/components/rule-content'
 
@@ -69,29 +70,37 @@ const HomeLoans = (): React.ReactNode => {
       <meta name="keywords" content="等额本息和等额本金哪个划算,房贷计算器2023年最新版,贷款计算器" />
       <Header isDefaultShow={true} />
       <ToolContentLayout>
-        <div className={styles.home_loans_content}>
-          <div className={styles.loans_classify}>
-            <Radio.Group
-              options={mortgageOption}
-              onChange={handleChangeMortgageClassify}
-              value={activeKey}
-              optionType="button"
-            />
-          </div>
-          <div className={styles.loans_content}>
-            {activeKey === '1' && (
-              <CommercialLoans
-                loading={loading}
-                commercialLoansRes={commercialLoansRes}
-                onSubmitCommercialLoans={handleSubmitCommercialLoans}
+        <div className={`${styles.home_loans_content} common-card-wrap`}>
+          <div className="common-card-content">
+            <div className={styles.loans_classify}>
+              <Radio.Group
+                options={mortgageOption}
+                onChange={handleChangeMortgageClassify}
+                value={activeKey}
+                optionType="button"
               />
-            )}
-            {activeKey === '2' && <SyndicatedLoans />}
-            {activeKey === '3' && <RepayLoans /> }
+            </div>
+            <div className={styles.loans_content}>
+              {activeKey === '1' && (
+                <CommercialLoans
+                  loading={loading}
+                  commercialLoansRes={commercialLoansRes}
+                  onSubmitCommercialLoans={handleSubmitCommercialLoans}
+                />
+              )}
+              {activeKey === '2' && <SyndicatedLoans />}
+              {activeKey === '3' && <RepayLoans /> }
+            </div>
           </div>
         </div>
+
+        <div className="common-card-wrap">
+          <div className="common-card-content">
+            <LoansBasicInfo />
+          </div>
+        </div>
+        <RuleContent rule={rule} />
       </ToolContentLayout>
-      <RuleContent rule={rule} />
     </>
   )
 }

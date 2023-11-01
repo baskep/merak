@@ -1,0 +1,40 @@
+.loans_basic_info {
+  border: 1px solid #f0f0f0;
+  border-radius: 4px;
+
+  .loans_info_item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-top: 1px solid #f0f0f0;
+
+    &:first-child {
+      border-top: 0;
+    }
+
+    & > div {
+      border-left: 1px solid #f0f0f0;
+
+      &:first-child {
+        border-left: 0;
+      }
+    }
+
+    .label,
+    .text {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+    }
+
+    .label {
+      width: 15%;
+      background-color: #fafafa;
+    }
+    
+    .text {
+      width: 35%;
+    }
+  }
+}

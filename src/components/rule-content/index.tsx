@@ -36,8 +36,8 @@ const RuleContent = (props: { rule: RuleItem[] }): React.ReactNode => {
   }, [rule])
 
   return (
-    <div className={styles.rule_content_wrap}>
-      <div className={styles.rule_content}>
+    <div className="common-card-wrap">
+      <div className="common-card-content">
         {ruleContent}
       </div>
     </div>
