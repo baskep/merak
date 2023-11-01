@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { Typography } from 'antd'
-import { RuleItem } from '@/types/interface'
+import { RuleItem } from '@/types/common-interface'
 
 import styles from './index.module.less'
 const { Title, Text } = Typography

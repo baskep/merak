@@ -1,7 +1,7 @@
 'use client'
 
 import { TbCategory } from 'react-icons/tb'
-import { TitleProps } from '@/types/interface'
+import { TitleProps } from '@/types/common-interface'
 
 import styles from './index.module.less'
 

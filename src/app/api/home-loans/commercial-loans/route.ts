@@ -26,7 +26,7 @@ function amountInterestEqual(
 
   // 所有利息
   // 总利息 = 还款月数 × 每月月供额 - 贷款本金
-  const totalAllInterest = round(chain(totalMonth).multiply(totalMonthAmount).done(), 2) - totalAmount
+  const totalAllInterest = round(chain(totalMonth).multiply(totalMonthAmount).subtract(totalAmount).done(), 2)
 
   // 全部还款金额
   // 还款金额 = 总利息 + 贷款本金

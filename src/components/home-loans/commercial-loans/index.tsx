@@ -12,7 +12,7 @@ import {
   Col,
 } from 'antd'
 import dayjs from 'dayjs'
-import { LoansField, LoansProps, PeriodsField } from '@/types/interface'
+import { LoansField, LoansProps, PeriodsField } from '@/types/loans-interface'
 
 import styles from './index.module.less'
 
@@ -41,8 +41,13 @@ const initialValues = {
   rateValue: 4.2,
 }
 
-const CommercialLoans = (props: LoansProps): React.ReactNode => {
-  const { loading, commercialLoansRes, onSubmitCommercialLoans } = props
+const CommercialLoans: React.FC<LoansProps> = (
+  {
+    loading,
+    commercialLoansRes,
+    onSubmitCommercialLoans,
+  },
+): React.ReactNode => {
 
   const [periods, setPeriods] = useState<PeriodsField[]>([])
 

@@ -1,21 +1,5 @@
 import { Dayjs } from 'dayjs'
 
-// 搜索区域tab
-export interface SearchTabItem {
-  tab: string
-  label: string
-}
-
-// 首页tab 组件 props定义
-export interface TitleProps {
-  title: string
-}
-
-// 工具详情页children定义
-export interface ToolLayoutProps {
-  children?: React.ReactNode
-}
-
 // 普通贷款表单字段
 export interface LoansField {
   amount?: number
@@ -26,12 +10,8 @@ export interface LoansField {
   rateValue?: number
 }
 
-// 普通贷款组件 props定义
-export interface LoansProps {
-  loading: boolean
-  commercialLoansRes: CommercialLoansResponse[]
-  onSubmitCommercialLoans(value: LoansField): void
-}
+// 普通贷款请求完整字段
+export type requestField = LoansField & { year: number; month: number }
 
 // 分期选项
 export interface PeriodsField {
@@ -54,14 +34,31 @@ export interface CommercialLoansResponse {
   totalAllInterest: number
 }
 
-// 规则定义
-export interface RuleItem {
-  title: string
-  text: string[]
+// 普通贷款组件 props定义
+export interface LoansProps {
+  loading: boolean
+  commercialLoansRes: CommercialLoansResponse
+  onSubmitCommercialLoans(value: LoansField): void
 }
 
-// 贷款计算信息数据遍历时的定义
+// 普通贷款计算信息数据遍历
 export interface BasicInfoItem {
   name: string
   prop: string
+}
+
+// 普通贷款基本信息
+export interface CommercialLoansInfo {
+  amount: number
+  periods: number
+  rateType: number
+  rateValue: number
+  totalAllInterest: number
+  totalRepaymentAmount: number
+  monthAmountArr: LoansResponseItem[]
+}
+
+// 普通贷款基本信息组件props
+export interface CommercialLoansInfoProps {
+  loansInfoData: CommercialLoansInfo
 }

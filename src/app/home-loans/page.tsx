@@ -1,10 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Radio } from 'antd'
 import type { RadioChangeEvent } from 'antd'
 import dayjs from 'dayjs'
 import { useRequest } from 'ahooks'
+import { isEmpty } from 'lodash'
 
 import Header from '@/components/header'
 import ToolContentLayout from '@/components/tool-content-layout'
@@ -15,12 +16,13 @@ import RepayLoans from '@/components/home-loans/repay-loans'
 import RuleContent from '@/components/rule-content'
 
 import { submitCommercialLoans } from '@/service/home-loans'
-import { LoansField, CommercialLoansResponse, RuleItem } from '@/types/interface'
+import { RuleItem } from '@/types/common-interface'
+import { LoansField, CommercialLoansInfo, CommercialLoansResponse, requestField } from '@/types/loans-interface'
 import { commercialLoansRule } from '@/config/home-loans'
 
 import styles from './index.module.less'
 
-const mortgageOption = [{
+const loansOption = [{
   label: '普通贷款',
   value: '1',
 }, {
@@ -31,24 +33,53 @@ const mortgageOption = [{
   value: '3',
 }]
 
+const defaultCommercialLoansRes = {
+  totalAllInterest: 0,
+  totalRepaymentAmount: 0,
+  monthAmountArr: [],
+}
+
 const HomeLoans = (): React.ReactNode => {
   const [activeKey, setActiveKey] = useState<string>('1')
-  const [commercialLoansRes, setCommercialLoans] = useState<CommercialLoansResponse[]>([])
-  const [rule, setRule] = useState<RuleItem[]>(commercialLoansRule)
+  const [loansInfoData, setLoansInfoData] = useState<CommercialLoansInfo>()
+  const [commercialLoansRes, setCommercialLoansRes] = useState<CommercialLoansResponse>(defaultCommercialLoansRes)
+  const [requestCacheParams, setRequestCacheParams] = useState<requestField>()
+  const [rule] = useState<RuleItem[]>(commercialLoansRule)
 
-  const { loading, run: getCommercialLoans } = useRequest(submitCommercialLoans, {
+  useEffect(() => {
+    if (
+      !isEmpty(commercialLoansRes) &&
+      commercialLoansRes.totalAllInterest &&
+      commercialLoansRes.totalRepaymentAmount
+    ) {
+      const { amount, periods, rateType, rateValue } = requestCacheParams as any
+      const { totalAllInterest, monthAmountArr, totalRepaymentAmount } = commercialLoansRes
+      const params = {
+        amount,
+        periods,
+        rateType,
+        rateValue,
+        monthAmountArr,
+        totalAllInterest,
+        totalRepaymentAmount,
+      }
+      setLoansInfoData(params)
+    }
+  }, [commercialLoansRes])
+
+  const { loading: commercialLoading, run: getCommercialLoans } = useRequest(submitCommercialLoans, {
     manual: true,
     onSuccess(res) {
       if (res?.code === 200) {
-        setCommercialLoans(res?.data || {})
+        setCommercialLoansRes(res?.data || {})
       }
     },
   })
 
-  const handleChangeMortgageClassify = ({ target: { value } }: RadioChangeEvent) => {
-    if (loading) return
+  const handleChangeLoansClassify = ({ target: { value } }: RadioChangeEvent) => {
+    if (commercialLoading) return
     setActiveKey(value)
-    setCommercialLoans([])
+    setCommercialLoansRes(defaultCommercialLoansRes)
   }
 
   const handleSubmitCommercialLoans = async (value: LoansField) => {
@@ -60,6 +91,7 @@ const HomeLoans = (): React.ReactNode => {
     }
     delete params.firsthMomth
     getCommercialLoans(params)
+    setRequestCacheParams(params)
   }
 
   return (
@@ -74,8 +106,8 @@ const HomeLoans = (): React.ReactNode => {
           <div className="common-card-content">
             <div className={styles.loans_classify}>
               <Radio.Group
-                options={mortgageOption}
-                onChange={handleChangeMortgageClassify}
+                options={loansOption}
+                onChange={handleChangeLoansClassify}
                 value={activeKey}
                 optionType="button"
               />
@@ -83,7 +115,7 @@ const HomeLoans = (): React.ReactNode => {
             <div className={styles.loans_content}>
               {activeKey === '1' && (
                 <CommercialLoans
-                  loading={loading}
+                  loading={commercialLoading}
                   commercialLoansRes={commercialLoansRes}
                   onSubmitCommercialLoans={handleSubmitCommercialLoans}
                 />
@@ -94,11 +126,14 @@ const HomeLoans = (): React.ReactNode => {
           </div>
         </div>
 
-        <div className="common-card-wrap">
-          <div className="common-card-content">
-            <LoansBasicInfo />
-          </div>
-        </div>
+        {!commercialLoading && !isEmpty(loansInfoData)
+          ? (
+            <div className="common-card-wrap">
+              <div className="common-card-content">
+                <LoansBasicInfo loansInfoData={loansInfoData} />
+              </div>
+            </div>
+          ) : null}
         <RuleContent rule={rule} />
       </ToolContentLayout>
     </>

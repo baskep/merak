@@ -1,4 +1,5 @@
-import { BasicInfoItem } from '@/types/interface'
+import { BasicInfoItem } from '@/types/loans-interface'
+import { CommercialLoansInfoProps } from '@/types/loans-interface'
 
 import styles from './index.module.less'
 
@@ -47,22 +48,25 @@ const loansInfoProperty = [
 
 const renderText = (propertyItem: BasicInfoItem[]): React.ReactNode => {
   return (
-    propertyItem.map((property: BasicInfoItem, index: number) => {
+    propertyItem.map((property: BasicInfoItem) => {
       return (
-        <>
+        <div className={styles.loans_info_detail} key={property.prop}>
           <div className={styles.label}>
             {property.name}
           </div>
           <div className={styles.text}>
             {property.prop}
           </div>
-        </>
+        </div>
       )
     })
   )
 }
 
-const LoansBasicInfo = (): React.ReactNode => {
+const LoansBasicInfo: React.FC<CommercialLoansInfoProps> = (props): React.ReactNode => {
+
+  console.log(props)
+
   return (
     <div className={styles.loans_basic_info}>
       {loansInfoProperty.map((propertyItem: BasicInfoItem[], index: number) => {

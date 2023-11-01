@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { RiSearchLine } from 'react-icons/ri'
-import { SearchTabItem } from '@/types/interface'
+import { SearchTabItem } from '@/types/common-interface'
 
 import treeBg from '@/assets/img/tree-bg.png'
 import styles from './index.module.less'

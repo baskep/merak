@@ -1,4 +1,4 @@
-import { LoansField } from '@/types/interface'
+import { LoansField } from '@/types/loans-interface'
 
 export const submitCommercialLoans = async (formData: LoansField) => {
   try {
