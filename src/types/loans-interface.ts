@@ -1,4 +1,5 @@
 import { Dayjs } from 'dayjs'
+import React from 'react'
 
 // 普通贷款表单字段
 export interface LoansField {
@@ -45,10 +46,13 @@ export interface LoansProps {
 export interface BasicInfoItem {
   name: string
   prop: string
+  render?(value: LoansField): string
 }
 
 // 普通贷款基本信息
 export interface CommercialLoansInfo {
+  year: number
+  month: number
   amount: number
   periods: number
   rateType: number
@@ -56,6 +60,7 @@ export interface CommercialLoansInfo {
   totalAllInterest: number
   totalRepaymentAmount: number
   monthAmountArr: LoansResponseItem[]
+  [key: string]: any
 }
 
 // 普通贷款基本信息组件props

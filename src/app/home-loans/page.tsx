@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Radio } from 'antd'
+import { Radio, Spin } from 'antd'
 import type { RadioChangeEvent } from 'antd'
 import dayjs from 'dayjs'
 import { useRequest } from 'ahooks'
@@ -52,9 +52,11 @@ const HomeLoans = (): React.ReactNode => {
       commercialLoansRes.totalAllInterest &&
       commercialLoansRes.totalRepaymentAmount
     ) {
-      const { amount, periods, rateType, rateValue } = requestCacheParams as any
+      const { amount, periods, rateType, rateValue, year, month } = requestCacheParams as any
       const { totalAllInterest, monthAmountArr, totalRepaymentAmount } = commercialLoansRes
       const params = {
+        year,
+        month,
         amount,
         periods,
         rateType,
@@ -126,11 +128,14 @@ const HomeLoans = (): React.ReactNode => {
           </div>
         </div>
 
-        {!commercialLoading && !isEmpty(loansInfoData)
+        {!isEmpty(loansInfoData)
           ? (
             <div className="common-card-wrap">
-              <div className="common-card-content">
-                <LoansBasicInfo loansInfoData={loansInfoData} />
+              <div className={`common-card-content ${commercialLoading ? 'common-card-loading' : '' }`}>
+                {commercialLoading
+                  ? <Spin />
+                  : <LoansBasicInfo loansInfoData={loansInfoData} />
+                }
               </div>
             </div>
           ) : null}
