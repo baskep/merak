@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Radio, Spin } from 'antd'
+import { Radio } from 'antd'
 import type { RadioChangeEvent } from 'antd'
 import dayjs from 'dayjs'
 import { useRequest } from 'ahooks'
@@ -14,6 +14,7 @@ import SyndicatedLoans from '@/components/home-loans/syndicated-loans'
 import LoansBasicInfo from '@/components/home-loans/loans-basic-info'
 import RepayLoans from '@/components/home-loans/repay-loans'
 import RuleContent from '@/components/rule-content'
+import CommercialLoansTable from '@/components/home-loans/commercial-loans-table'
 
 import { submitCommercialLoans } from '@/service/home-loans'
 import { RuleItem } from '@/types/common-interface'
@@ -118,7 +119,6 @@ const HomeLoans = (): React.ReactNode => {
               {activeKey === '1' && (
                 <CommercialLoans
                   loading={commercialLoading}
-                  commercialLoansRes={commercialLoansRes}
                   onSubmitCommercialLoans={handleSubmitCommercialLoans}
                 />
               )}
@@ -127,18 +127,19 @@ const HomeLoans = (): React.ReactNode => {
             </div>
           </div>
         </div>
-
-        {!isEmpty(loansInfoData)
-          ? (
-            <div className="common-card-wrap">
-              <div className={`common-card-content ${commercialLoading ? 'common-card-loading' : '' }`}>
-                {commercialLoading
-                  ? <Spin />
-                  : <LoansBasicInfo loansInfoData={loansInfoData} />
-                }
-              </div>
-            </div>
-          ) : null}
+        {!isEmpty(loansInfoData) && (
+          <LoansBasicInfo
+            loading={commercialLoading}
+            loansInfoData={loansInfoData}
+          />
+        )}
+        {!isEmpty(loansInfoData) && (
+          <CommercialLoansTable
+            loading={commercialLoading}
+            loansInfoData={loansInfoData}
+            commercialLoansRes={commercialLoansRes}
+          />
+        )}
         <RuleContent rule={rule} />
       </ToolContentLayout>
     </>

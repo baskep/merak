@@ -1,3 +1,4 @@
+import { Spin } from 'antd'
 import { BasicInfoItem } from '@/types/loans-interface'
 import { CommercialLoansInfoProps, CommercialLoansInfo } from '@/types/loans-interface'
 
@@ -84,17 +85,23 @@ const renderText = (loansInfoData: CommercialLoansInfo, propertyItem: BasicInfoI
 }
 
 const LoansBasicInfo: React.FC<CommercialLoansInfoProps> = (props): React.ReactNode => {
-  const { loansInfoData } = props
+  const { loading, loansInfoData } = props as any
 
   return (
-    <div className={styles.loans_basic_info}>
-      {loansInfoProperty.map((propertyItem: BasicInfoItem[], index: number) => {
-        return (
-          <div className={styles.loans_info_item} key={index}>
-            {renderText(loansInfoData, propertyItem)}
+    <div className="common-card-wrap">
+      <div className={`common-card-content ${loading ? 'common-card-loading' : ''}`}>
+        {!loading ? (
+          <div className={styles.loans_basic_info}>
+            {loansInfoProperty.map((propertyItem: BasicInfoItem[], index: number) => {
+              return (
+                <div className={styles.loans_info_item} key={index}>
+                  {renderText(loansInfoData, propertyItem)}
+                </div>
+              )
+            })}
           </div>
-        )
-      })}
+        ) : <Spin />}
+      </div>
     </div>
   )
 }

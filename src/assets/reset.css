@@ -212,3 +212,10 @@ body {
   display: flex;
   justify-content: center;
 }
+
+.commercial-loans-table td, 
+.commercial-loans-table tr,
+.commercial-loans-table th {
+  font-size: 16px;
+  text-align: center !important;
+}

@@ -74,11 +74,11 @@ function amountInterestEqual(
     restRepaymentAmount = round(chain(restRepaymentAmount).subtract(monthAmount).done(), 2)
 
     monthAmountArr.push({
-      monthName: `${year}年${month}月`,
+      monthName: `${year}年${_month}月`,
       monthInterest,
       monthAmount,
       totalMonthAmount,
-      restRepaymentAmount,
+      restRepaymentAmount: restRepaymentAmount < 0 ? 0 : restRepaymentAmount,
     })
   }
 
@@ -165,7 +165,7 @@ function amountEqual(
       monthAmount: monthPrincipal,
       monthInterest,
       totalMonthAmount,
-      restRepaymentAmount,
+      restRepaymentAmount: restRepaymentAmount < 0 ? 0 : restRepaymentAmount,
     })
   }
 

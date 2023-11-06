@@ -44,7 +44,6 @@ const initialValues = {
 const CommercialLoans: React.FC<LoansProps> = (
   {
     loading,
-    commercialLoansRes,
     onSubmitCommercialLoans,
   },
 ): React.ReactNode => {
