@@ -57,6 +57,7 @@ const CommercialLoansTable: React.FC<CommercialLoansTableProps> = (
         <div className={styles.commercial_loans_table} />
         <Table
           className="commercial-loans-table"
+          rowKey={(record) => record.monthName}
           columns={columns}
           dataSource={monthAmountArr}
           pagination={false}
