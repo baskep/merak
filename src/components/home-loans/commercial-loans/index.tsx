@@ -170,7 +170,6 @@ const CommercialLoans: React.FC<LoansProps> = (
               type="primary"
               htmlType="submit"
               size="large"
-              loading={loading}
             >
               立即计算
             </Button>

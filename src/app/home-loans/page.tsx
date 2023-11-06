@@ -86,6 +86,7 @@ const HomeLoans = (): React.ReactNode => {
   }
 
   const handleSubmitCommercialLoans = async (value: LoansField) => {
+    if (commercialLoading) return
     const { firsthMomth } = value
     const params = {
       ...value,

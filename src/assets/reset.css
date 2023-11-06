@@ -208,11 +208,6 @@ body {
   padding: 20px; 
 }
 
-.common-card-content.common-card-loading  {
-  display: flex;
-  justify-content: center;
-}
-
 .commercial-loans-table td, 
 .commercial-loans-table tr,
 .commercial-loans-table th {

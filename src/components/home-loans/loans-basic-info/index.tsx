@@ -89,18 +89,21 @@ const LoansBasicInfo: React.FC<CommercialLoansInfoProps> = (props): React.ReactN
 
   return (
     <div className="common-card-wrap">
-      <div className={`common-card-content ${loading ? 'common-card-loading' : ''}`}>
-        {!loading ? (
-          <div className={styles.loans_basic_info}>
-            {loansInfoProperty.map((propertyItem: BasicInfoItem[], index: number) => {
-              return (
-                <div className={styles.loans_info_item} key={index}>
-                  {renderText(loansInfoData, propertyItem)}
-                </div>
-              )
-            })}
-          </div>
-        ) : <Spin />}
+      <div className="common-card-content">
+        <div className={styles.loans_basic_info}>
+          {loansInfoProperty.map((propertyItem: BasicInfoItem[], index: number) => {
+            return (
+              <div className={styles.loans_info_item} key={index}>
+                {renderText(loansInfoData, propertyItem)}
+              </div>
+            )
+          })}
+          {loading ? (
+            <div className={styles.loans_info_loading}>
+              <Spin />
+            </div>
+          ) : null}
+        </div>
       </div>
     </div>
   )

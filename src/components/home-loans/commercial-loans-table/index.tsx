@@ -19,6 +19,11 @@ const columns = [
     title: '月份',
     dataIndex: 'monthName',
     key: 'monthName',
+    render(text: string, record: LoansResponseItem, index: number): React.ReactNode {
+      return (
+        <span>{record.monthName}</span>
+      )
+    },
   },
   {
     title: '每月还款总额(元)',
