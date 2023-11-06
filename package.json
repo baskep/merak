@@ -18,6 +18,7 @@
     "antd": "^5.9.0",
     "dayjs": "^1.11.9",
     "eslint-config-next": "13.4.19",
+    "house-loan-calculator": "^1.0.4",
     "lodash": "^4.17.21",
     "mathjs": "^11.11.2",
     "next": "13.4.19",

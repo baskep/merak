@@ -127,19 +127,22 @@ const HomeLoans = (): React.ReactNode => {
             </div>
           </div>
         </div>
-        {!isEmpty(loansInfoData) && (
-          <LoansBasicInfo
-            loading={commercialLoading}
-            loansInfoData={loansInfoData}
-          />
-        )}
-        {!isEmpty(loansInfoData) && (
-          <CommercialLoansTable
-            loading={commercialLoading}
-            loansInfoData={loansInfoData}
-            commercialLoansRes={commercialLoansRes}
-          />
-        )}
+        {!isEmpty(loansInfoData) && loansInfoData.monthAmountArr.length
+          ? (
+            <LoansBasicInfo
+              loading={commercialLoading}
+              loansInfoData={loansInfoData}
+            />
+          ) : null}
+
+        {!isEmpty(loansInfoData) && loansInfoData.monthAmountArr.length
+          ? (
+            <CommercialLoansTable
+              loading={commercialLoading}
+              loansInfoData={loansInfoData}
+              commercialLoansRes={commercialLoansRes}
+            />
+          ) : null}
         <RuleContent rule={rule} />
       </ToolContentLayout>
     </>
