@@ -1,6 +1,6 @@
-import { LoansField } from '@/types/loans-interface'
+import { CommercialLoansField } from '@/types/loans-interface'
 
-export const submitCommercialLoans = async (formData: LoansField) => {
+export const submitCommercialLoans = async (formData: CommercialLoansField) => {
   try {
     const res = await fetch('/api/home-loans/commercial-loans', {
       method: 'post',

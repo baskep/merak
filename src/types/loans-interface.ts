@@ -1,7 +1,7 @@
 import { Dayjs } from 'dayjs'
 
 // 普通贷款表单字段
-export interface LoansField {
+export interface CommercialLoansField {
   amount?: number
   periods?: number
   loanType?: number
@@ -11,7 +11,7 @@ export interface LoansField {
 }
 
 // 普通贷款请求完整字段
-export type requestField = LoansField & { year: number; month: number }
+export type requestField = CommercialLoansField & { year: number; month: number }
 
 // 分期选项
 export interface PeriodsField {
@@ -19,7 +19,7 @@ export interface PeriodsField {
   label: string
 }
 
-export interface LoansResponseItem {
+export interface CommercialLoansResponseItem {
   monthName: string
   monthAmount: number
   monthInterest: number
@@ -29,22 +29,22 @@ export interface LoansResponseItem {
 
 // 普通贷款响应结果
 export interface CommercialLoansResponse {
-  monthAmountArr: LoansResponseItem[]
+  monthAmountArr: CommercialLoansResponseItem[]
   totalRepaymentAmount: number
   totalAllInterest: number
 }
 
 // 普通贷款组件 props定义
-export interface LoansProps {
+export interface CommercialLoansProps {
   loading: boolean
-  onSubmitCommercialLoans(value: LoansField): void
+  onSubmitCommercialLoans(value: CommercialLoansField): void
 }
 
 // 普通贷款计算信息数据遍历
 export interface BasicInfoItem {
   name: string
   prop: string
-  render?(value: LoansField): string
+  render?(value: CommercialLoansField): string
 }
 
 // 普通贷款基本信息
@@ -57,7 +57,7 @@ export interface CommercialLoansInfo {
   rateValue: number
   totalAllInterest: number
   totalRepaymentAmount: number
-  monthAmountArr: LoansResponseItem[]
+  monthAmountArr: CommercialLoansResponseItem[]
   [key: string]: any
 }
 
@@ -72,4 +72,10 @@ export interface CommercialLoansTableProps {
   commercialLoansRes?: CommercialLoansResponse
   loansInfoData?: CommercialLoansInfo
   loading?: boolean
+}
+
+// 公积金贷款表单字段
+export interface PublicLoansField {
+  publicAmount?: number
+  publicRateValue?: number
 }

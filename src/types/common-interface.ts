@@ -5,12 +5,12 @@ export interface SearchTabItem {
 }
 
 // 首页tab 组件 props定义
-export interface TitleProps {
+export interface Title {
   title: string
 }
 
 // 工具详情页children定义
-export interface ToolLayoutProps {
+export interface ToolLayoutChild {
   children?: React.ReactNode
 }
 

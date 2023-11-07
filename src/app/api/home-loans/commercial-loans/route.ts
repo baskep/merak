@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { chain } from 'mathjs'
 import { averageInterest, averageCapital } from 'house-loan-calculator'
-import { LoansResponseItem } from '@/types/loans-interface'
+import { CommercialLoansResponseItem } from '@/types/loans-interface'
 
 interface ComputedResType {
   repay: number
@@ -94,7 +94,7 @@ function amountInterestEqual(
   const res = averageInterest(amount, rate, totalMonth)
   const { totalRepay, totalInterest, monthRepay } = res
 
-  const monthAmountArr: LoansResponseItem[] = []
+  const monthAmountArr: CommercialLoansResponseItem[] = []
   let _month = month - 1
 
   monthRepay.map((item: ComputedResType) => {
@@ -205,7 +205,7 @@ function amountEqual(
   const res = averageCapital(amount, rate, totalMonth)
   const { totalRepay, totalInterest, monthRepay } = res
 
-  const monthAmountArr: LoansResponseItem[] = []
+  const monthAmountArr: CommercialLoansResponseItem[] = []
   let _month = month - 1
 
   monthRepay.map((item: ComputedResType) => {

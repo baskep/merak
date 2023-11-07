@@ -18,7 +18,7 @@ import CommercialLoansTable from '@/components/home-loans/commercial-loans-table
 
 import { submitCommercialLoans } from '@/service/home-loans'
 import { RuleItem } from '@/types/common-interface'
-import { LoansField, CommercialLoansInfo, CommercialLoansResponse, requestField } from '@/types/loans-interface'
+import { CommercialLoansField, CommercialLoansInfo, CommercialLoansResponse, requestField } from '@/types/loans-interface'
 import { commercialLoansRule } from '@/config/home-loans'
 
 import styles from './index.module.less'
@@ -41,8 +41,8 @@ const defaultCommercialLoansRes = {
 }
 
 const HomeLoans = (): React.ReactNode => {
-  const [activeKey, setActiveKey] = useState<string>('1')
-  const [loansInfoData, setLoansInfoData] = useState<CommercialLoansInfo>()
+  const [activeKey, setActiveKey] = useState<string>('2')
+  const [loansInfoData, setLoansInfoData] = useState<CommercialLoansInfo | null>()
   const [commercialLoansRes, setCommercialLoansRes] = useState<CommercialLoansResponse>(defaultCommercialLoansRes)
   const [requestCacheParams, setRequestCacheParams] = useState<requestField>()
   const [rule] = useState<RuleItem[]>(commercialLoansRule)
@@ -83,9 +83,10 @@ const HomeLoans = (): React.ReactNode => {
     if (commercialLoading) return
     setActiveKey(value)
     setCommercialLoansRes(defaultCommercialLoansRes)
+    setLoansInfoData(null)
   }
 
-  const handleSubmitCommercialLoans = async (value: LoansField) => {
+  const handleSubmitCommercialLoans = async (value: CommercialLoansField) => {
     if (commercialLoading) return
     const { firsthMomth } = value
     const params = {
