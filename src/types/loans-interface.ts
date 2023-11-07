@@ -8,6 +8,7 @@ export interface CommercialLoansField {
   firsthMomth?: Dayjs
   rateType?: number
   rateValue?: number
+  activeKey?: string
 }
 
 // 普通贷款请求完整字段
@@ -79,3 +80,12 @@ export interface PublicLoansField {
   publicAmount?: number
   publicRateValue?: number
 }
+
+export type SyndicatedLoansField = CommercialLoansField | PublicLoansField
+
+// 组合贷款组件 props定义
+export interface SyndicatedLoansProps {
+  loading: boolean
+  onSubmitSyndicatedLoans(value: SyndicatedLoansField): void
+}
+

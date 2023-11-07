@@ -16,7 +16,7 @@ import {
 
 import dayjs from 'dayjs'
 
-import { CommercialLoansField, PeriodsField, PublicLoansField } from '@/types/loans-interface'
+import { CommercialLoansField, PeriodsField, PublicLoansField, SyndicatedLoansProps } from '@/types/loans-interface'
 
 import styles from './index.module.less'
 
@@ -49,7 +49,12 @@ const initialValues = {
   publicRateValue: 3.1,
 }
 
-const SyndicatedLoans = (): React.ReactNode => {
+const SyndicatedLoans: React.FC<SyndicatedLoansProps> = (
+  {
+    loading,
+    onSubmitSyndicatedLoans,
+  },
+): React.ReactNode => {
 
   const [periods, setPeriods] = useState<PeriodsField[]>([])
 
@@ -67,7 +72,7 @@ const SyndicatedLoans = (): React.ReactNode => {
     setPeriods(_periods)
   }, [])
 
-  const onCheck = async () => {
+  const handleSubmitSyndicatedLoans = async () => {
     try {
       const commercialValue = await commercialForm.validateFields()
       const publicValue = await publicForm.validateFields()
@@ -230,7 +235,7 @@ const SyndicatedLoans = (): React.ReactNode => {
       </div>
 
       <div className={styles.submit_col}>
-        <Button type="primary" size="large" onClick={onCheck}>
+        <Button type="primary" size="large" onClick={handleSubmitSyndicatedLoans}>
           立即计算
         </Button>
       </div>

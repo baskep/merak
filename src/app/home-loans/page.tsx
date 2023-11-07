@@ -18,8 +18,14 @@ import CommercialLoansTable from '@/components/home-loans/commercial-loans-table
 
 import { submitCommercialLoans } from '@/service/home-loans'
 import { RuleItem } from '@/types/common-interface'
-import { CommercialLoansField, CommercialLoansInfo, CommercialLoansResponse, requestField } from '@/types/loans-interface'
 import { commercialLoansRule } from '@/config/home-loans'
+import {
+  CommercialLoansField,
+  CommercialLoansInfo,
+  CommercialLoansResponse,
+  requestField,
+  SyndicatedLoansField,
+} from '@/types/loans-interface'
 
 import styles from './index.module.less'
 
@@ -79,6 +85,15 @@ const HomeLoans = (): React.ReactNode => {
     },
   })
 
+  const { loading: syndicatedLoading, run: getCommercialLoans1 } = useRequest(submitCommercialLoans, {
+    manual: true,
+    onSuccess(res) {
+      if (res?.code === 200) {
+        setCommercialLoansRes(res?.data || {})
+      }
+    },
+  })
+
   const handleChangeLoansClassify = ({ target: { value } }: RadioChangeEvent) => {
     if (commercialLoading) return
     setActiveKey(value)
@@ -93,10 +108,15 @@ const HomeLoans = (): React.ReactNode => {
       ...value,
       year: dayjs(firsthMomth).year(),
       month: dayjs(firsthMomth).month() + 1,
+      activeKey,
     }
     delete params.firsthMomth
     getCommercialLoans(params)
     setRequestCacheParams(params)
+  }
+
+  const handleSubmitSyndicatedLoans = async (value: SyndicatedLoansField) => {
+    console.log(666)
   }
 
   return (
@@ -124,7 +144,12 @@ const HomeLoans = (): React.ReactNode => {
                   onSubmitCommercialLoans={handleSubmitCommercialLoans}
                 />
               )}
-              {activeKey === '2' && <SyndicatedLoans />}
+              {activeKey === '2' && (
+                <SyndicatedLoans
+                  loading={syndicatedLoading}
+                  onSubmitSyndicatedLoans={handleSubmitSyndicatedLoans}
+                />
+              ) }
               {activeKey === '3' && <RepayLoans /> }
             </div>
           </div>

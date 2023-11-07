@@ -238,7 +238,7 @@ export async function POST(req: Request) {
   try {
     const params = await req.json()
 
-    const { amount, loanType, month, periods, rateValue, year } = params
+    const { amount, loanType, month, periods, rateValue, year, activeKey } = params
 
     let data = {}
     if (loanType === 1) {
