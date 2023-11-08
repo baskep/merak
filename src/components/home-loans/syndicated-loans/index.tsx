@@ -16,7 +16,7 @@ import {
 
 import dayjs from 'dayjs'
 
-import { CommercialLoansField, PeriodsField, PublicLoansField, SyndicatedLoansProps } from '@/types/loans-interface'
+import { LoansField, PeriodsField, PublicLoansField, SyndicatedLoansProps } from '@/types/loans-interface'
 
 import styles from './index.module.less'
 
@@ -99,7 +99,7 @@ const SyndicatedLoans: React.FC<SyndicatedLoansProps> = (
         >
           <Row>
             <Col span={11}>
-              <Form.Item<CommercialLoansField>
+              <Form.Item<LoansField>
                 labelCol={{ span: 6 }}
                 label="贷款金额(万元)"
                 name="amount"
@@ -113,7 +113,7 @@ const SyndicatedLoans: React.FC<SyndicatedLoansProps> = (
               </Form.Item>
             </Col>
             <Col span={11} offset={2}>
-              <Form.Item<CommercialLoansField>
+              <Form.Item<LoansField>
                 labelCol={{ span: 6 }}
                 label="贷款期数"
                 name="periods"
@@ -129,7 +129,7 @@ const SyndicatedLoans: React.FC<SyndicatedLoansProps> = (
 
           <Row>
             <Col span={11}>
-              <Form.Item<CommercialLoansField>
+              <Form.Item<LoansField>
                 labelCol={{ span: 6 }}
                 label="贷款方式"
                 name="loanType"
@@ -142,7 +142,7 @@ const SyndicatedLoans: React.FC<SyndicatedLoansProps> = (
               </Form.Item>
             </Col>
             <Col span={11} offset={2}>
-              <Form.Item<CommercialLoansField>
+              <Form.Item<LoansField>
                 labelCol={{ span: 6 }}
                 label="首次还款月份"
                 name="firsthMomth"
@@ -160,7 +160,7 @@ const SyndicatedLoans: React.FC<SyndicatedLoansProps> = (
 
           <Row>
             <Col span={11}>
-              <Form.Item<CommercialLoansField>
+              <Form.Item<LoansField>
                 labelCol={{ span: 6 }}
                 label="利率模式"
                 name="rateType"
@@ -173,7 +173,7 @@ const SyndicatedLoans: React.FC<SyndicatedLoansProps> = (
               </Form.Item>
             </Col>
             <Col span={11} offset={2}>
-              <Form.Item<CommercialLoansField>
+              <Form.Item<LoansField>
                 labelCol={{ span: 6 }}
                 label="基准利率%"
                 name="rateValue"

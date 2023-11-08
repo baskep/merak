@@ -14,15 +14,15 @@ import SyndicatedLoans from '@/components/home-loans/syndicated-loans'
 import LoansBasicInfo from '@/components/home-loans/loans-basic-info'
 import RepayLoans from '@/components/home-loans/repay-loans'
 import RuleContent from '@/components/rule-content'
-import CommercialLoansTable from '@/components/home-loans/commercial-loans-table'
+import CommercialLoansTable from '@/components/home-loans/loans-table'
 
 import { submitCommercialLoans, submitSyndicatedLoans } from '@/service/home-loans'
 import { RuleItem } from '@/types/common-interface'
 import { commercialLoansRule } from '@/config/home-loans'
 import {
-  CommercialLoansField,
-  CommercialLoansInfo,
-  CommercialLoansResponse,
+  LoansField,
+  LoansInfo,
+  LoansResponse,
   requestField,
   SyndicatedLoansField,
 } from '@/types/loans-interface'
@@ -48,16 +48,16 @@ const defaultCommercialLoansRes = {
 
 const HomeLoans = (): React.ReactNode => {
   const [activeKey, setActiveKey] = useState<string>('2')
-  const [loansInfoData, setLoansInfoData] = useState<CommercialLoansInfo | null>()
-  const [commercialLoansRes, setCommercialLoansRes] = useState<CommercialLoansResponse>(defaultCommercialLoansRes)
+  const [loansInfoData, setLoansInfoData] = useState<LoansInfo | null>()
+  const [loansRes, setLoansRes] = useState<LoansResponse>(defaultCommercialLoansRes)
   const [requestCacheParams, setRequestCacheParams] = useState<requestField>()
   const [rule] = useState<RuleItem[]>(commercialLoansRule)
 
   useEffect(() => {
     if (
-      !isEmpty(commercialLoansRes) &&
-      commercialLoansRes.totalAllInterest &&
-      commercialLoansRes.totalRepaymentAmount
+      !isEmpty(loansRes) &&
+      loansRes.totalAllInterest &&
+      loansRes.totalRepaymentAmount
     ) {
       const {
         amount,
@@ -70,7 +70,7 @@ const HomeLoans = (): React.ReactNode => {
         publicRateValue,
       } = requestCacheParams as any
 
-      const { totalAllInterest, monthAmountArr, totalRepaymentAmount } = commercialLoansRes
+      const { totalAllInterest, monthAmountArr, totalRepaymentAmount } = loansRes
 
       const params = {
         year,
@@ -87,13 +87,13 @@ const HomeLoans = (): React.ReactNode => {
       }
       setLoansInfoData(params)
     }
-  }, [commercialLoansRes])
+  }, [loansRes])
 
   const { loading: commercialLoading, run: getCommercialLoans } = useRequest(submitCommercialLoans, {
     manual: true,
     onSuccess(res) {
       if (res?.code === 200) {
-        setCommercialLoansRes(res?.data || {})
+        setLoansRes(res?.data || {})
       }
     },
   })
@@ -102,7 +102,7 @@ const HomeLoans = (): React.ReactNode => {
     manual: true,
     onSuccess(res) {
       if (res?.code === 200) {
-        setCommercialLoansRes(res?.data || {})
+        setLoansRes(res?.data || {})
       }
     },
   })
@@ -110,11 +110,11 @@ const HomeLoans = (): React.ReactNode => {
   const handleChangeLoansClassify = ({ target: { value } }: RadioChangeEvent) => {
     if (commercialLoading) return
     setActiveKey(value)
-    setCommercialLoansRes(defaultCommercialLoansRes)
+    setLoansRes(defaultCommercialLoansRes)
     setLoansInfoData(null)
   }
 
-  const handleSubmitCommercialLoans = async (value: CommercialLoansField) => {
+  const handleSubmitCommercialLoans = async (value: LoansField) => {
     if (commercialLoading) return
     const { firsthMomth } = value
     const params = {
@@ -189,7 +189,7 @@ const HomeLoans = (): React.ReactNode => {
             <CommercialLoansTable
               loading={commercialLoading || syndicatedLoading}
               loansInfoData={loansInfoData}
-              commercialLoansRes={commercialLoansRes}
+              loansRes={loansRes}
             />
           ) : null}
         <RuleContent rule={rule} />

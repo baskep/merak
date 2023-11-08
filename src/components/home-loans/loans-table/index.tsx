@@ -1,6 +1,6 @@
 import { Table } from 'antd'
 
-import { CommercialLoansTableProps, CommercialLoansResponseItem } from '@/types/loans-interface'
+import { LoansTableProps, LoansResponseItem } from '@/types/loans-interface'
 
 import styles from './index.module.less'
 
@@ -9,7 +9,7 @@ const columns = [
     title: '期数',
     dataIndex: 'number',
     key: 'periods',
-    render(text: string, record: CommercialLoansResponseItem, index: number): React.ReactNode {
+    render(text: string, record: LoansResponseItem, index: number): React.ReactNode {
       return (
         <span>{index + 1}期</span>
       )
@@ -19,7 +19,7 @@ const columns = [
     title: '月份',
     dataIndex: 'monthName',
     key: 'monthName',
-    render(text: string, record: CommercialLoansResponseItem, index: number): React.ReactNode {
+    render(text: string, record: LoansResponseItem, index: number): React.ReactNode {
       return (
         <span>{record.monthName}</span>
       )
@@ -47,14 +47,14 @@ const columns = [
   },
 ]
 
-const CommercialLoansTable: React.FC<CommercialLoansTableProps> = (
+const CommercialLoansTable: React.FC<LoansTableProps> = (
   {
     loading,
-    commercialLoansRes,
+    loansRes,
   },
 ): React.ReactNode => {
 
-  const { monthAmountArr } = commercialLoansRes as any
+  const { monthAmountArr } = loansRes as any
 
   return (
     <div className="common-card-wrap">

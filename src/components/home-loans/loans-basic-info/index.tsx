@@ -1,7 +1,7 @@
 import { Spin } from 'antd'
 import { chain, round } from 'mathjs'
 import { BasicInfoItem } from '@/types/loans-interface'
-import { CommercialLoansInfoProps, CommercialLoansInfo } from '@/types/loans-interface'
+import { LoansInfoProps, LoansInfo } from '@/types/loans-interface'
 
 import styles from './index.module.less'
 
@@ -10,7 +10,7 @@ const loansInfoProperty = [
     {
       name: '总贷款金额(万元)',
       prop: 'amount',
-      render(loansInfoData: CommercialLoansInfo) {
+      render(loansInfoData: LoansInfo) {
         const { amount, publicAmount } = loansInfoData
         return publicAmount ? `${round(chain(publicAmount).add(amount).done(), 2)}` : `${amount}`
       },
@@ -18,7 +18,7 @@ const loansInfoProperty = [
     {
       name: '贷款期限',
       prop: 'periods',
-      render(loansInfoData: CommercialLoansInfo) {
+      render(loansInfoData: LoansInfo) {
         const { periods } = loansInfoData
         return `${periods}年(${periods * 12}期)`
       },
@@ -28,7 +28,7 @@ const loansInfoProperty = [
     {
       name: '贷款方式',
       prop: 'rateType',
-      render(loansInfoData: CommercialLoansInfo) {
+      render(loansInfoData: LoansInfo) {
         const { rateType } = loansInfoData
         return rateType === 1 ? '等额本息(每月金额相等)' : '等额本金(金额逐月减少)'
       },
@@ -36,7 +36,7 @@ const loansInfoProperty = [
     {
       name: '首次还款月份',
       prop: 'month',
-      render(loansInfoData: CommercialLoansInfo) {
+      render(loansInfoData: LoansInfo) {
         const { year, month } = loansInfoData
         return `${year}年${month}月`
       },
@@ -53,7 +53,7 @@ const loansInfoProperty = [
     {
       name: '利率(百分比)',
       prop: 'rateValue',
-      render(loansInfoData: CommercialLoansInfo, activeKey: string) {
+      render(loansInfoData: LoansInfo, activeKey: string) {
         if (activeKey === '2') {
           return `商业贷款利率${loansInfoData.rateValue}%, 公积金贷款利率${loansInfoData.publicRateValue}%`
         }
@@ -70,7 +70,7 @@ const loansInfoProperty = [
     {
       name: '每月总还款(月供)',
       prop: 'monthAmount',
-      render(loansInfoData: CommercialLoansInfo) {
+      render(loansInfoData: LoansInfo) {
         const { rateType, monthAmountArr } = loansInfoData
         return rateType === 1 ? `${monthAmountArr[0].totalMonthAmount}` : '金额逐月减少，请看下表'
       },
@@ -79,7 +79,7 @@ const loansInfoProperty = [
 ]
 
 const renderText = (
-  loansInfoData: CommercialLoansInfo,
+  loansInfoData: LoansInfo,
   propertyItem: BasicInfoItem[],
   activeKey?: string,
 ): React.ReactNode => {
@@ -100,7 +100,7 @@ const renderText = (
   )
 }
 
-const LoansBasicInfo: React.FC<CommercialLoansInfoProps> = (props): React.ReactNode => {
+const LoansBasicInfo: React.FC<LoansInfoProps> = (props): React.ReactNode => {
   const { activeKey, loading, loansInfoData } = props as any
 
   return (
