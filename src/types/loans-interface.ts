@@ -8,7 +8,6 @@ export interface CommercialLoansField {
   firsthMomth?: Dayjs
   rateType?: number
   rateValue?: number
-  activeKey?: string
 }
 
 // 普通贷款请求完整字段
@@ -45,7 +44,7 @@ export interface CommercialLoansProps {
 export interface BasicInfoItem {
   name: string
   prop: string
-  render?(value: CommercialLoansField): string
+  render?(value: CommercialLoansField, activeKey?: string): string
 }
 
 // 普通贷款基本信息
@@ -64,15 +63,16 @@ export interface CommercialLoansInfo {
 
 // 普通贷款基本信息组件props
 export interface CommercialLoansInfoProps {
-  loansInfoData?: CommercialLoansInfo
-  loading?: boolean
+  activeKey: string
+  loansInfoData: CommercialLoansInfo
+  loading: boolean
 }
 
 // 普通贷款组件table 列表props
 export interface CommercialLoansTableProps {
-  commercialLoansRes?: CommercialLoansResponse
-  loansInfoData?: CommercialLoansInfo
-  loading?: boolean
+  commercialLoansRes: CommercialLoansResponse
+  loansInfoData: CommercialLoansInfo
+  loading: boolean
 }
 
 // 公积金贷款表单字段
@@ -81,7 +81,7 @@ export interface PublicLoansField {
   publicRateValue?: number
 }
 
-export type SyndicatedLoansField = CommercialLoansField | PublicLoansField
+export type SyndicatedLoansField = CommercialLoansField & PublicLoansField
 
 // 组合贷款组件 props定义
 export interface SyndicatedLoansProps {

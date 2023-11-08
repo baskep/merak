@@ -1,4 +1,5 @@
 import { Spin } from 'antd'
+import { chain, round } from 'mathjs'
 import { BasicInfoItem } from '@/types/loans-interface'
 import { CommercialLoansInfoProps, CommercialLoansInfo } from '@/types/loans-interface'
 
@@ -7,8 +8,12 @@ import styles from './index.module.less'
 const loansInfoProperty = [
   [
     {
-      name: '贷款金额(万元)',
+      name: '总贷款金额(万元)',
       prop: 'amount',
+      render(loansInfoData: CommercialLoansInfo) {
+        const { amount, publicAmount } = loansInfoData
+        return publicAmount ? `${round(chain(publicAmount).add(amount).done(), 2)}` : `${amount}`
+      },
     },
     {
       name: '贷款期限',
@@ -48,6 +53,13 @@ const loansInfoProperty = [
     {
       name: '利率(百分比)',
       prop: 'rateValue',
+      render(loansInfoData: CommercialLoansInfo, activeKey: string) {
+        if (activeKey === '2') {
+          return `商业贷款利率${loansInfoData.rateValue}%, 公积金贷款利率${loansInfoData.publicRateValue}%`
+        }
+        return `${loansInfoData.rateValue}`
+
+      },
     },
   ],
   [
@@ -66,7 +78,11 @@ const loansInfoProperty = [
   ],
 ]
 
-const renderText = (loansInfoData: CommercialLoansInfo, propertyItem: BasicInfoItem[]): React.ReactNode => {
+const renderText = (
+  loansInfoData: CommercialLoansInfo,
+  propertyItem: BasicInfoItem[],
+  activeKey?: string,
+): React.ReactNode => {
   return (
     propertyItem.map((property: BasicInfoItem) => {
       const key = property.prop
@@ -76,7 +92,7 @@ const renderText = (loansInfoData: CommercialLoansInfo, propertyItem: BasicInfoI
             {property.name}
           </div>
           <div className={styles.text}>
-            {property.render ? `${property.render(loansInfoData)}` : loansInfoData[key]}
+            {property.render ? `${property.render(loansInfoData, activeKey)}` : loansInfoData[key]}
           </div>
         </div>
       )
@@ -85,7 +101,7 @@ const renderText = (loansInfoData: CommercialLoansInfo, propertyItem: BasicInfoI
 }
 
 const LoansBasicInfo: React.FC<CommercialLoansInfoProps> = (props): React.ReactNode => {
-  const { loading, loansInfoData } = props as any
+  const { activeKey, loading, loansInfoData } = props as any
 
   return (
     <div className="common-card-wrap">
@@ -94,7 +110,7 @@ const LoansBasicInfo: React.FC<CommercialLoansInfoProps> = (props): React.ReactN
           {loansInfoProperty.map((propertyItem: BasicInfoItem[], index: number) => {
             return (
               <div className={styles.loans_info_item} key={index}>
-                {renderText(loansInfoData, propertyItem)}
+                {renderText(loansInfoData, propertyItem, activeKey)}
               </div>
             )
           })}

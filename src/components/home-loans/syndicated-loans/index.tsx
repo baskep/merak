@@ -77,6 +77,7 @@ const SyndicatedLoans: React.FC<SyndicatedLoansProps> = (
       const commercialValue = await commercialForm.validateFields()
       const publicValue = await publicForm.validateFields()
       const syndicatedLoansValue = Object.assign({ ...commercialValue, ...publicValue })
+      onSubmitSyndicatedLoans(syndicatedLoansValue)
     } catch (e) {
       console.log(e)
     }
@@ -235,7 +236,12 @@ const SyndicatedLoans: React.FC<SyndicatedLoansProps> = (
       </div>
 
       <div className={styles.submit_col}>
-        <Button type="primary" size="large" onClick={handleSubmitSyndicatedLoans}>
+        <Button
+          type="primary"
+          size="large"
+          loading={loading}
+          onClick={handleSubmitSyndicatedLoans}
+        >
           立即计算
         </Button>
       </div>
