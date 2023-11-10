@@ -24,7 +24,6 @@ import {
   LoansInfo,
   LoansResponse,
   requestField,
-  SyndicatedLoansField,
 } from '@/types/loans-interface'
 
 import styles from './index.module.less'
@@ -47,7 +46,7 @@ const defaultCommercialLoansRes = {
 }
 
 const HomeLoans = (): React.ReactNode => {
-  const [activeKey, setActiveKey] = useState<string>('2')
+  const [activeKey, setActiveKey] = useState<string>('3')
   const [loansInfoData, setLoansInfoData] = useState<LoansInfo | null>()
   const [loansRes, setLoansRes] = useState<LoansResponse>(defaultCommercialLoansRes)
   const [requestCacheParams, setRequestCacheParams] = useState<requestField>()
@@ -127,7 +126,7 @@ const HomeLoans = (): React.ReactNode => {
     setRequestCacheParams(params)
   }
 
-  const handleSubmitSyndicatedLoans = async (value: SyndicatedLoansField) => {
+  const handleSubmitSyndicatedLoans = async (value: LoansField) => {
     if (syndicatedLoading) return
     const { firsthMomth } = value
     const params = {

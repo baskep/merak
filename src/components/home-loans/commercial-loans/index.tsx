@@ -69,7 +69,7 @@ const CommercialLoans: React.FC<LoansProps> = (
     <div className={styles.commercial_loans}>
       <Form
         layout="vertical"
-        labelCol={{ span: 6 }}
+        labelCol={{ span: 8 }}
         wrapperCol={{ span: 24 }}
         initialValues={initialValues}
         onFinish={handleSubmitCommercialLoans}
@@ -77,7 +77,7 @@ const CommercialLoans: React.FC<LoansProps> = (
         <Row>
           <Col span={11}>
             <Form.Item<LoansField>
-              labelCol={{ span: 6 }}
+              labelCol={{ span: 8 }}
               label="贷款金额(万元)"
               name="amount"
               rules={[{ required: true, message: '请输入贷款金额' }]}
@@ -91,7 +91,7 @@ const CommercialLoans: React.FC<LoansProps> = (
           </Col>
           <Col span={11} offset={2}>
             <Form.Item<LoansField>
-              labelCol={{ span: 6 }}
+              labelCol={{ span: 8 }}
               label="贷款期数"
               name="periods"
               rules={[{ required: true, message: '请选择贷款期数' }]}
@@ -107,7 +107,7 @@ const CommercialLoans: React.FC<LoansProps> = (
         <Row>
           <Col span={11}>
             <Form.Item<LoansField>
-              labelCol={{ span: 6 }}
+              labelCol={{ span: 8 }}
               label="贷款方式"
               name="loanType"
               rules={[{ required: true, message: '请选择贷款方式' }]}
@@ -120,7 +120,7 @@ const CommercialLoans: React.FC<LoansProps> = (
           </Col>
           <Col span={11} offset={2}>
             <Form.Item<LoansField>
-              labelCol={{ span: 6 }}
+              labelCol={{ span: 8 }}
               label="首次还款月份"
               name="firsthMomth"
               rules={[{ required: true, message: '请选择首次还款月份' }]}
@@ -138,7 +138,7 @@ const CommercialLoans: React.FC<LoansProps> = (
         <Row>
           <Col span={11}>
             <Form.Item<LoansField>
-              labelCol={{ span: 6 }}
+              labelCol={{ span: 8 }}
               label="利率模式"
               name="rateType"
               rules={[{ required: true, message: '请选择利率模式' }]}
@@ -151,14 +151,14 @@ const CommercialLoans: React.FC<LoansProps> = (
           </Col>
           <Col span={11} offset={2}>
             <Form.Item<LoansField>
-              labelCol={{ span: 6 }}
-              label="基准利率%"
+              labelCol={{ span: 8 }}
+              label="利率%"
               name="rateValue"
-              rules={[{ required: true, message: '请输入基准利率' }]}
+              rules={[{ required: true, message: '请输入利率' }]}
             >
               <Input
                 className={styles.input_item}
-                placeholder="请输入基准利率"
+                placeholder="请输入利率"
               />
             </Form.Item>
           </Col>

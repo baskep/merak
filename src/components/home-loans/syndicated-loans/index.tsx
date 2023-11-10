@@ -1,26 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import {
-  Form,
-  Input,
-  InputNumber,
-  Select,
-  DatePicker,
-  Button,
-  Row,
-  Col,
-  Divider,
-  Typography,
-} from 'antd'
-
+import { Form, Input, InputNumber, Select, DatePicker, Button, Row, Col } from 'antd'
 import dayjs from 'dayjs'
 
-import { LoansField, PeriodsField, PublicLoansField, SyndicatedLoansProps } from '@/types/loans-interface'
+import { LoansField, PeriodsField, SyndicatedLoansProps } from '@/types/loans-interface'
 
 import styles from './index.module.less'
-
-const { Title } = Typography
 
 // 贷款方式
 const rateType = [{
@@ -58,8 +44,7 @@ const SyndicatedLoans: React.FC<SyndicatedLoansProps> = (
 
   const [periods, setPeriods] = useState<PeriodsField[]>([])
 
-  const [commercialForm] = Form.useForm()
-  const [publicForm] = Form.useForm()
+  const [loansForm] = Form.useForm()
 
   useEffect(() => {
     const _periods = []
@@ -74,10 +59,8 @@ const SyndicatedLoans: React.FC<SyndicatedLoansProps> = (
 
   const handleSubmitSyndicatedLoans = async () => {
     try {
-      const commercialValue = await commercialForm.validateFields()
-      const publicValue = await publicForm.validateFields()
-      const syndicatedLoansValue = Object.assign({ ...commercialValue, ...publicValue })
-      onSubmitSyndicatedLoans(syndicatedLoansValue)
+      const loansValue = await loansForm.validateFields()
+      onSubmitSyndicatedLoans(loansValue)
     } catch (e) {
       console.log(e)
     }
@@ -85,24 +68,51 @@ const SyndicatedLoans: React.FC<SyndicatedLoansProps> = (
 
   return (
     <div className={styles.syndicated_loans}>
-      <div className={styles.syndicated_loans_title}>
-        <Title level={5}>商贷部分</Title>
-      </div>
-      <Divider className={styles.syndicated_loans_divicer} style={{ margin: '12px 0' }} />
       <div className={styles.commercial_loans}>
         <Form
           layout="vertical"
-          labelCol={{ span: 6 }}
+          labelCol={{ span: 8 }}
           wrapperCol={{ span: 24 }}
           initialValues={initialValues}
-          form={commercialForm}
+          form={loansForm}
         >
           <Row>
             <Col span={11}>
               <Form.Item<LoansField>
-                labelCol={{ span: 6 }}
-                label="贷款金额(万元)"
+                labelCol={{ span: 8 }}
+                label="商业贷款金额(万元)"
                 name="amount"
+                rules={[{ required: true, message: '请输入贷款金额' }]}
+              >
+                <InputNumber
+                  className={styles.input_item}
+                  controls={false}
+                  placeholder="请输入贷款金额"
+                />
+              </Form.Item>
+            </Col>
+
+            <Col span={11} offset={2}>
+              <Form.Item<LoansField>
+                labelCol={{ span: 8 }}
+                label="商业贷款利率%"
+                name="rateValue"
+                rules={[{ required: true, message: '请输入利率' }]}
+              >
+                <Input
+                  className={styles.input_item}
+                  placeholder="请输入利率"
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col span={11}>
+              <Form.Item<LoansField>
+                labelCol={{ span: 8 }}
+                label="公积金贷款金额(万元)"
+                name="publicAmount"
                 rules={[{ required: true, message: '请输入贷款金额' }]}
               >
                 <InputNumber
@@ -114,23 +124,22 @@ const SyndicatedLoans: React.FC<SyndicatedLoansProps> = (
             </Col>
             <Col span={11} offset={2}>
               <Form.Item<LoansField>
-                labelCol={{ span: 6 }}
-                label="贷款期数"
-                name="periods"
-                rules={[{ required: true, message: '请选择贷款期数' }]}
+                labelCol={{ span: 8 }}
+                label="公积金贷款利率%"
+                name="publicRateValue"
+                rules={[{ required: true, message: '请输入利率' }]}
               >
-                <Select
+                <Input
                   className={styles.input_item}
-                  options={periods}
+                  placeholder="请输入利率"
                 />
               </Form.Item>
             </Col>
           </Row>
-
           <Row>
             <Col span={11}>
               <Form.Item<LoansField>
-                labelCol={{ span: 6 }}
+                labelCol={{ span: 8 }}
                 label="贷款方式"
                 name="loanType"
                 rules={[{ required: true, message: '请选择贷款方式' }]}
@@ -143,7 +152,7 @@ const SyndicatedLoans: React.FC<SyndicatedLoansProps> = (
             </Col>
             <Col span={11} offset={2}>
               <Form.Item<LoansField>
-                labelCol={{ span: 6 }}
+                labelCol={{ span: 8 }}
                 label="首次还款月份"
                 name="firsthMomth"
                 rules={[{ required: true, message: '请选择首次还款月份' }]}
@@ -161,7 +170,7 @@ const SyndicatedLoans: React.FC<SyndicatedLoansProps> = (
           <Row>
             <Col span={11}>
               <Form.Item<LoansField>
-                labelCol={{ span: 6 }}
+                labelCol={{ span: 8 }}
                 label="利率模式"
                 name="rateType"
                 rules={[{ required: true, message: '请选择利率模式' }]}
@@ -174,59 +183,14 @@ const SyndicatedLoans: React.FC<SyndicatedLoansProps> = (
             </Col>
             <Col span={11} offset={2}>
               <Form.Item<LoansField>
-                labelCol={{ span: 6 }}
-                label="基准利率%"
-                name="rateValue"
-                rules={[{ required: true, message: '请输入基准利率' }]}
+                labelCol={{ span: 8 }}
+                label="贷款期数"
+                name="periods"
+                rules={[{ required: true, message: '请选择贷款期数' }]}
               >
-                <Input
+                <Select
                   className={styles.input_item}
-                  placeholder="请输入基准利率"
-                />
-              </Form.Item>
-            </Col>
-          </Row>
-        </Form>
-      </div>
-
-      <div className={styles.syndicated_loans_title}>
-        <Title level={5}>公积金部分</Title>
-      </div>
-
-      <Divider className={styles.syndicated_loans_divicer} style={{ margin: '12px 0' }} />
-      <div className={styles.commercial_loans}>
-        <Form
-          layout="vertical"
-          labelCol={{ span: 6 }}
-          wrapperCol={{ span: 24 }}
-          initialValues={initialValues}
-          form={publicForm}
-        >
-          <Row>
-            <Col span={11}>
-              <Form.Item<PublicLoansField>
-                labelCol={{ span: 6 }}
-                label="贷款金额(万元)"
-                name="publicAmount"
-                rules={[{ required: true, message: '请输入贷款金额' }]}
-              >
-                <InputNumber
-                  className={styles.input_item}
-                  controls={false}
-                  placeholder="请输入贷款金额"
-                />
-              </Form.Item>
-            </Col>
-            <Col span={11} offset={2}>
-              <Form.Item<PublicLoansField>
-                labelCol={{ span: 6 }}
-                label="基准利率%"
-                name="publicRateValue"
-                rules={[{ required: true, message: '请输入基准利率' }]}
-              >
-                <Input
-                  className={styles.input_item}
-                  placeholder="请输入基准利率"
+                  options={periods}
                 />
               </Form.Item>
             </Col>
@@ -234,7 +198,6 @@ const SyndicatedLoans: React.FC<SyndicatedLoansProps> = (
 
         </Form>
       </div>
-
       <div className={styles.submit_col}>
         <Button
           type="primary"
