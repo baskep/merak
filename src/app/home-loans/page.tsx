@@ -16,7 +16,7 @@ import RepayLoans from '@/components/home-loans/repay-loans'
 import RuleContent from '@/components/rule-content'
 import CommercialLoansTable from '@/components/home-loans/loans-table'
 
-import { submitCommercialLoans, submitSyndicatedLoans } from '@/service/home-loans'
+import { submitCommercialLoans, submitSyndicatedLoans, submitRepayLoans } from '@/service/home-loans'
 import { RuleItem } from '@/types/common-interface'
 import { commercialLoansRule } from '@/config/home-loans'
 import {
@@ -60,11 +60,13 @@ const HomeLoans = (): React.ReactNode => {
     ) {
       const {
         amount,
+        repayAmount,
         periods,
         rateType,
         rateValue,
         year,
         month,
+        loanType,
         publicAmount,
         publicRateValue,
       } = requestCacheParams as any
@@ -75,9 +77,11 @@ const HomeLoans = (): React.ReactNode => {
         year,
         month,
         amount,
+        repayAmount,
         periods,
         rateType,
         rateValue,
+        loanType,
         monthAmountArr,
         totalAllInterest,
         totalRepaymentAmount,
@@ -106,6 +110,15 @@ const HomeLoans = (): React.ReactNode => {
     },
   })
 
+  const { loading: repayLoading, run: getRepayLoans } = useRequest(submitRepayLoans, {
+    manual: true,
+    onSuccess(res) {
+      if (res?.code === 200) {
+        setLoansRes(res?.data || {})
+      }
+    },
+  })
+
   const handleChangeLoansClassify = ({ target: { value } }: RadioChangeEvent) => {
     if (commercialLoading) return
     setActiveKey(value)
@@ -113,8 +126,8 @@ const HomeLoans = (): React.ReactNode => {
     setLoansInfoData(null)
   }
 
-  const handleSubmitCommercialLoans = async (value: LoansField) => {
-    if (commercialLoading) return
+  const handleSubmitLoans = async (value: LoansField) => {
+    if (commercialLoading || syndicatedLoading || repayLoading) return
     const { firsthMomth } = value
     const params = {
       ...value,
@@ -122,20 +135,19 @@ const HomeLoans = (): React.ReactNode => {
       month: dayjs(firsthMomth).month() + 1,
     }
     delete params.firsthMomth
-    getCommercialLoans(params)
-    setRequestCacheParams(params)
-  }
-
-  const handleSubmitSyndicatedLoans = async (value: LoansField) => {
-    if (syndicatedLoading) return
-    const { firsthMomth } = value
-    const params = {
-      ...value,
-      year: dayjs(firsthMomth).year(),
-      month: dayjs(firsthMomth).month() + 1,
+    switch (activeKey) {
+    case '1':
+      getCommercialLoans(params)
+      break
+    case '2':
+      getSyndicatedLoans(params)
+      break
+    case '3':
+      getRepayLoans(params)
+      break
+    default:
+      break
     }
-    delete params.firsthMomth
-    getSyndicatedLoans(params)
     setRequestCacheParams(params)
   }
 
@@ -161,16 +173,21 @@ const HomeLoans = (): React.ReactNode => {
               {activeKey === '1' && (
                 <CommercialLoans
                   loading={commercialLoading}
-                  onSubmitCommercialLoans={handleSubmitCommercialLoans}
+                  onSubmitLoans={handleSubmitLoans}
                 />
               )}
               {activeKey === '2' && (
                 <SyndicatedLoans
                   loading={syndicatedLoading}
-                  onSubmitSyndicatedLoans={handleSubmitSyndicatedLoans}
+                  onSubmitLoans={handleSubmitLoans}
                 />
               ) }
-              {activeKey === '3' && <RepayLoans /> }
+              {activeKey === '3' && (
+                <RepayLoans
+                  loading={repayLoading}
+                  onSubmitLoans={handleSubmitLoans}
+                />
+              )}
             </div>
           </div>
         </div>

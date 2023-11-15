@@ -41,12 +41,10 @@ const initialValues = {
   rateValue: 4.2,
 }
 
-const CommercialLoans: React.FC<LoansProps> = (
-  {
-    loading,
-    onSubmitCommercialLoans,
-  },
-): React.ReactNode => {
+const CommercialLoans: React.FC<LoansProps> = ({
+  loading,
+  onSubmitLoans,
+}): React.ReactNode => {
 
   const [periods, setPeriods] = useState<PeriodsField[]>([])
 
@@ -61,8 +59,8 @@ const CommercialLoans: React.FC<LoansProps> = (
     setPeriods(_periods)
   }, [])
 
-  const handleSubmitCommercialLoans = (value: LoansField) => {
-    onSubmitCommercialLoans(value)
+  const handleSubmitLoans = (value: LoansField) => {
+    onSubmitLoans(value)
   }
 
   return (
@@ -72,7 +70,7 @@ const CommercialLoans: React.FC<LoansProps> = (
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 24 }}
         initialValues={initialValues}
-        onFinish={handleSubmitCommercialLoans}
+        onFinish={handleSubmitLoans}
       >
         <Row>
           <Col span={11}>

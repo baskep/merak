@@ -16,7 +16,7 @@ import {
 
 import dayjs from 'dayjs'
 
-import { LoansField, PeriodsField } from '@/types/loans-interface'
+import { LoansField, PeriodsField, LoansProps } from '@/types/loans-interface'
 
 import styles from './index.module.less'
 
@@ -40,7 +40,10 @@ const loanType = [{
   label: '等额本金(金额逐月减少)',
 }]
 
-const RepayLoans = (): React.ReactNode => {
+const RepayLoans: React.FC<LoansProps> = ({
+  loading,
+  onSubmitLoans,
+}): React.ReactNode => {
 
   const [periods, setPeriods] = useState<PeriodsField[]>([])
 
@@ -57,14 +60,16 @@ const RepayLoans = (): React.ReactNode => {
     setPeriods(_periods)
   }, [])
 
-  const handleTest = (value: LoansField) => {
+  const handleSubmitLoans = (value: LoansField) => {
     const { amount, repayAmount } = value as any
-    if (repayAmount > amount) {
+    if (repayAmount >= amount) {
       messageApi.open({
         type: 'error',
-        content: '提前还款金额不得大于剩余贷款金额',
+        content: '使用该计算器时，提前还款金额应小于剩余贷款金额',
       })
+      return
     }
+    onSubmitLoans(value)
   }
 
   return (
@@ -76,13 +81,13 @@ const RepayLoans = (): React.ReactNode => {
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 24 }}
           initialValues={initialValues}
-          onFinish={handleTest}
+          onFinish={handleSubmitLoans}
         >
           <Row>
             <Col span={11}>
               <Form.Item<LoansField>
                 labelCol={{ span: 8 }}
-                label="剩余贷款金额(万元)"
+                label="剩余总贷款金额(万元)"
                 name="amount"
                 rules={[{ required: true, message: '请输入贷款金额' }]}
               >
@@ -173,8 +178,9 @@ const RepayLoans = (): React.ReactNode => {
                 type="primary"
                 htmlType="submit"
                 size="large"
+                loading={loading}
               >
-              立即计算
+                立即计算
               </Button>
             </Col>
           </Row>

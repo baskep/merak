@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect, useState } from 'react'
 import { Spin } from 'antd'
 import { chain, round } from 'mathjs'
 import { BasicInfoItem } from '@/types/loans-interface'
@@ -5,13 +8,16 @@ import { LoansInfoProps, LoansInfo } from '@/types/loans-interface'
 
 import styles from './index.module.less'
 
-const loansInfoProperty = [
+const defaultLoansInfoProperty = [
   [
     {
       name: '总贷款金额(万元)',
       prop: 'amount',
-      render(loansInfoData: LoansInfo) {
-        const { amount, publicAmount } = loansInfoData
+      render(loansInfoData: LoansInfo, activeKey: string) {
+        const { amount, repayAmount, publicAmount } = loansInfoData
+        if (activeKey === '3') {
+          return chain(amount).subtract(repayAmount).done()
+        }
         return publicAmount ? `${round(chain(publicAmount).add(amount).done(), 2)}` : `${amount}`
       },
     },
@@ -27,10 +33,10 @@ const loansInfoProperty = [
   [
     {
       name: '贷款方式',
-      prop: 'rateType',
+      prop: 'loanType',
       render(loansInfoData: LoansInfo) {
-        const { rateType } = loansInfoData
-        return rateType === 1 ? '等额本息(每月金额相等)' : '等额本金(金额逐月减少)'
+        const { loanType } = loansInfoData
+        return loanType === 1 ? '等额本息(每月金额相等)' : '等额本金(金额逐月减少)'
       },
     },
     {
@@ -71,8 +77,8 @@ const loansInfoProperty = [
       name: '每月总还款(月供)',
       prop: 'monthAmount',
       render(loansInfoData: LoansInfo) {
-        const { rateType, monthAmountArr } = loansInfoData
-        return rateType === 1 ? `${monthAmountArr[0].totalMonthAmount}` : '金额逐月减少，请看下表'
+        const { loanType, monthAmountArr } = loansInfoData
+        return loanType === 1 ? `${monthAmountArr[0].totalMonthAmount}` : '金额逐月减少，请看下表'
       },
     },
   ],
@@ -102,6 +108,13 @@ const renderText = (
 
 const LoansBasicInfo: React.FC<LoansInfoProps> = (props): React.ReactNode => {
   const { activeKey, loading, loansInfoData } = props as any
+  const [loansInfoProperty, setLoansInfoProperty] = useState(defaultLoansInfoProperty)
+
+  useEffect(() => {
+    const _loansInfoProperty = [...loansInfoProperty]
+    _loansInfoProperty[0][0].name = activeKey === '3' ? '剩余贷款金额(万元)' : '总贷款金额(万元)'
+    setLoansInfoProperty(_loansInfoProperty)
+  }, [activeKey])
 
   return (
     <div className="common-card-wrap">

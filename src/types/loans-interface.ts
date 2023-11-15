@@ -40,7 +40,7 @@ export interface LoansResponse {
 // 贷款组件 props定义
 export interface LoansProps {
   loading: boolean
-  onSubmitCommercialLoans(value: LoansField): void
+  onSubmitLoans(value: LoansField): void
 }
 
 // 贷款计算信息数据遍历
@@ -77,10 +77,3 @@ export interface LoansTableProps {
   loansInfoData: LoansInfo
   loading: boolean
 }
-
-// 组合贷款组件 props定义
-export interface SyndicatedLoansProps {
-  loading: boolean
-  onSubmitSyndicatedLoans(value: LoansField): void
-}
-

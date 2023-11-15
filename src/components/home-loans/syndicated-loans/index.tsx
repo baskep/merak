@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { Form, Input, InputNumber, Select, DatePicker, Button, Row, Col } from 'antd'
 import dayjs from 'dayjs'
 
-import { LoansField, PeriodsField, SyndicatedLoansProps } from '@/types/loans-interface'
+import { LoansField, PeriodsField, LoansProps } from '@/types/loans-interface'
 
 import styles from './index.module.less'
 
@@ -35,12 +35,10 @@ const initialValues = {
   publicRateValue: 3.1,
 }
 
-const SyndicatedLoans: React.FC<SyndicatedLoansProps> = (
-  {
-    loading,
-    onSubmitSyndicatedLoans,
-  },
-): React.ReactNode => {
+const SyndicatedLoans: React.FC<LoansProps> = ({
+  loading,
+  onSubmitLoans,
+}): React.ReactNode => {
 
   const [periods, setPeriods] = useState<PeriodsField[]>([])
 
@@ -57,10 +55,10 @@ const SyndicatedLoans: React.FC<SyndicatedLoansProps> = (
     setPeriods(_periods)
   }, [])
 
-  const handleSubmitSyndicatedLoans = async () => {
+  const handleSubmitLoans = async () => {
     try {
       const loansValue = await loansForm.validateFields()
-      onSubmitSyndicatedLoans(loansValue)
+      onSubmitLoans(loansValue)
     } catch (e) {
       console.log(e)
     }
@@ -203,7 +201,7 @@ const SyndicatedLoans: React.FC<SyndicatedLoansProps> = (
           type="primary"
           size="large"
           loading={loading}
-          onClick={handleSubmitSyndicatedLoans}
+          onClick={handleSubmitLoans}
         >
           立即计算
         </Button>
