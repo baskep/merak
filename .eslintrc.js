@@ -5,7 +5,6 @@ module.exports = {
   },
   'extends': [
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
   ],
@@ -22,17 +21,14 @@ module.exports = {
       },
     },
   ],
-  'parser': '@typescript-eslint/parser',
   'parserOptions': {
     'ecmaVersion': 'latest',
     'sourceType': 'module',
   },
   'plugins': [
-    '@typescript-eslint',
     'react',
-    'react-hooks',
   ],
-  rules: {
+  'rules': {
     'no-var': 'error',
     'prefer-template': 'error',
     'no-multi-assign': 'error',
@@ -135,6 +131,7 @@ module.exports = {
     'no-mixed-operators': 'off',
     'jsx-a11y/alt-text': 'off',
     'no-unused-vars': 'off',
+    'no-undef': 'off',
     'arrow-parens': ['error', 'always'],
     'no-param-reassign': 'off',
     'indent': ['error', 2],
@@ -176,27 +173,5 @@ module.exports = {
     ],
     'react-hooks/rules-of-hooks': 'off',
     'react-hooks/exhaustive-deps': 'off',
-    '@typescript-eslint/camelcase': 'off',
-    '@typescript-eslint/no-non-null-assertion': 'error',
-    '@typescript-eslint/member-delimiter-style': [
-      2,
-      {
-        multiline: {
-          delimiter: 'none',
-          requireLast: true,
-        },
-        singleline: {
-          delimiter: 'semi',
-          requireLast: false,
-        },
-      },
-    ],
-    '@typescript-eslint/no-unused-vars': ['off', { args: 'none' }],
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/no-var-requires': 'off',
-    '@typescript-eslint/no-use-before-define': 'error',
-    '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/no-this-alias': 'off',
-    '@typescript-eslint/no-empty-function': 'off',
   },
 }

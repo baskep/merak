@@ -1,16 +1,18 @@
+'use client'
+
 import { useMemo } from 'react'
 import { Typography } from 'antd'
-import { RuleItem } from '@/types/common-interface'
 
 import styles from './index.module.less'
+
 const { Title, Text } = Typography
 
-const RuleContent = (props: { rule: RuleItem[] }): React.ReactNode => {
+const RuleContent = (props) => {
   const { rule } = props
 
-  const renderText = (textArr: string[]): React.ReactNode => {
+  const renderText = (textArr) => {
     return (
-      textArr.map((text: string) => {
+      textArr.map((text) => {
         return (
           <p key={text} style={{ marginBottom: '0' }}>
             {text}
@@ -21,7 +23,7 @@ const RuleContent = (props: { rule: RuleItem[] }): React.ReactNode => {
   }
 
   const ruleContent = useMemo(() => {
-    return rule.map((item: RuleItem, index) => {
+    return rule.map((item, index) => {
       return (
         <div key={index} className={styles.rule_item}>
           <Title style={{ fontSize: '14px', color: '#f1404b' }}>

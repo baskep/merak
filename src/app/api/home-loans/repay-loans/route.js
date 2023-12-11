@@ -1,32 +1,24 @@
 import { NextResponse } from 'next/server'
 import { chain } from 'mathjs'
 import { averageInterest, averageCapital } from 'house-loan-calculator'
-import { LoansResponseItem } from '@/types/loans-interface'
-
-interface ComputedResType {
-  repay: number
-  interest: number
-  capital: number
-  oddCapital: number
-}
 
 // 等额本息计算
 function amountInterestEqual(
-  amount: number, // 贷款总金额(万元)
-  periods: number, // 贷款总年限
-  rate: number, // 利率
-  year: number, // 起始年份
-  month: number, // 起始月份
+  amount, // 贷款总金额(万元)
+  periods, // 贷款总年限
+  rate, // 利率
+  year, // 起始年份
+  month, // 起始月份
 ) {
   const totalMonth = chain(periods).multiply(12).done()
 
   const res = averageInterest(amount, rate, totalMonth)
   const { totalRepay, totalInterest, monthRepay } = res
 
-  const monthAmountArr: LoansResponseItem[] = []
+  const monthAmountArr = []
   let _month = month - 1
 
-  monthRepay.map((item: ComputedResType) => {
+  monthRepay.map((item) => {
     const { repay, interest, capital, oddCapital } = item
     _month += 1
 
@@ -53,21 +45,21 @@ function amountInterestEqual(
 
 // 等额本金计算
 function amountEqual(
-  amount: number, // 贷款总金额(万元)
-  periods: number, // 贷款总年限
-  rate: number, // 利率
-  year: number, // 起始年份
-  month: number, // 起始月份
+  amount, // 贷款总金额(万元)
+  periods, // 贷款总年限
+  rate, // 利率
+  year, // 起始年份
+  month, // 起始月份
 ) {
   const totalMonth = chain(periods).multiply(12).done()
 
   const res = averageCapital(amount, rate, totalMonth)
   const { totalRepay, totalInterest, monthRepay } = res
 
-  const monthAmountArr: LoansResponseItem[] = []
+  const monthAmountArr = []
   let _month = month - 1
 
-  monthRepay.map((item: ComputedResType) => {
+  monthRepay.map((item) => {
     const { repay, interest, capital, oddCapital } = item
     _month += 1
 
@@ -93,7 +85,7 @@ function amountEqual(
 
 }
 
-export async function POST(req: Request) {
+export async function POST(req) {
   try {
     const params = await req.json()
 

@@ -3,8 +3,6 @@
 import { useEffect, useState } from 'react'
 import { Spin } from 'antd'
 import { chain, round } from 'mathjs'
-import { BasicInfoItem } from '@/types/loans-interface'
-import { LoansInfoProps, LoansInfo } from '@/types/loans-interface'
 
 import styles from './index.module.less'
 
@@ -13,7 +11,7 @@ const defaultLoansInfoProperty = [
     {
       name: '总贷款金额(万元)',
       prop: 'amount',
-      render(loansInfoData: LoansInfo, activeKey: string) {
+      render(loansInfoData, activeKey) {
         const { amount, repayAmount, publicAmount } = loansInfoData
         if (activeKey === '3') {
           return chain(amount).subtract(repayAmount).done()
@@ -24,7 +22,7 @@ const defaultLoansInfoProperty = [
     {
       name: '贷款期限',
       prop: 'periods',
-      render(loansInfoData: LoansInfo) {
+      render(loansInfoData) {
         const { periods } = loansInfoData
         return `${periods}年(${periods * 12}期)`
       },
@@ -34,7 +32,7 @@ const defaultLoansInfoProperty = [
     {
       name: '贷款方式',
       prop: 'loanType',
-      render(loansInfoData: LoansInfo) {
+      render(loansInfoData) {
         const { loanType } = loansInfoData
         return loanType === 1 ? '等额本息(每月金额相等)' : '等额本金(金额逐月减少)'
       },
@@ -42,7 +40,7 @@ const defaultLoansInfoProperty = [
     {
       name: '首次还款月份',
       prop: 'month',
-      render(loansInfoData: LoansInfo) {
+      render(loansInfoData) {
         const { year, month } = loansInfoData
         return `${year}年${month}月`
       },
@@ -59,7 +57,7 @@ const defaultLoansInfoProperty = [
     {
       name: '利率(百分比)',
       prop: 'rateValue',
-      render(loansInfoData: LoansInfo, activeKey: string) {
+      render(loansInfoData, activeKey) {
         if (activeKey === '2') {
           return `商业贷款利率${loansInfoData.rateValue}%, 公积金贷款利率${loansInfoData.publicRateValue}%`
         }
@@ -76,7 +74,7 @@ const defaultLoansInfoProperty = [
     {
       name: '每月总还款(月供)',
       prop: 'monthAmount',
-      render(loansInfoData: LoansInfo) {
+      render(loansInfoData) {
         const { loanType, monthAmountArr } = loansInfoData
         return loanType === 1 ? `${monthAmountArr[0].totalMonthAmount}` : '金额逐月减少，请看下表'
       },
@@ -85,12 +83,12 @@ const defaultLoansInfoProperty = [
 ]
 
 const renderText = (
-  loansInfoData: LoansInfo,
-  propertyItem: BasicInfoItem[],
-  activeKey?: string,
-): React.ReactNode => {
+  loansInfoData,
+  propertyItem,
+  activeKey,
+) => {
   return (
-    propertyItem.map((property: BasicInfoItem) => {
+    propertyItem.map((property) => {
       const key = property.prop
       return (
         <div className={styles.loans_info_detail} key={property.prop}>
@@ -106,8 +104,8 @@ const renderText = (
   )
 }
 
-const LoansBasicInfo: React.FC<LoansInfoProps> = (props): React.ReactNode => {
-  const { activeKey, loading, loansInfoData } = props as any
+const LoansBasicInfo = (props) => {
+  const { activeKey, loading, loansInfoData } = props
   const [loansInfoProperty, setLoansInfoProperty] = useState(defaultLoansInfoProperty)
 
   useEffect(() => {
@@ -120,7 +118,7 @@ const LoansBasicInfo: React.FC<LoansInfoProps> = (props): React.ReactNode => {
     <div className="common-card-wrap">
       <div className="common-card-content">
         <div className={styles.loans_basic_info}>
-          {loansInfoProperty.map((propertyItem: BasicInfoItem[], index: number) => {
+          {loansInfoProperty.map((propertyItem, index) => {
             return (
               <div className={styles.loans_info_item} key={index}>
                 {renderText(loansInfoData, propertyItem, activeKey)}

@@ -5,7 +5,7 @@ import '@/assets/reset.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
-const RootLayout = ({ children }: { children: React.ReactNode }): React.ReactNode => {
+const RootLayout = ({ children }) => {
   return (
     <html>
       <body className={inter.className}>

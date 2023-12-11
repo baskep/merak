@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { RiSearchLine } from 'react-icons/ri'
-import { SearchTabItem } from '@/types/common-interface'
 
 import treeBg from '@/assets/img/tree-bg.png'
 import styles from './index.module.less'
@@ -34,10 +33,10 @@ const defaultTabItems = [
   },
 ]
 
-const headerSearch = (): React.ReactNode => {
-  const [activeTab, setActiveTab] = useState<string>('1')
+const headerSearch = () => {
+  const [activeTab, setActiveTab] = useState('1')
 
-  const handleClickSearchAreaTab = (item: SearchTabItem) => {
+  const handleClickSearchAreaTab = (item) => {
     setActiveTab(item.tab)
   }
 

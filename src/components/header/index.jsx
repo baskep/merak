@@ -5,12 +5,11 @@ import { useDebounceFn } from 'ahooks'
 import Weather from '@/icons/weather'
 import { AiFillHome } from 'react-icons/ai'
 import { BiLinkAlt } from 'react-icons/bi'
-// import { BsFire } from 'react-icons/bs'
 
 import styles from './index.module.less'
 
-const Header = ({ isDefaultShow = false }): React.ReactNode => {
-  const [isShowBg, setIsShowBg] = useState<boolean>(isDefaultShow)
+const Header = ({ isDefaultShow = false }) => {
+  const [isShowBg, setIsShowBg] = useState(isDefaultShow)
 
   const scrollFunction = () => {
     const ele = document.documentElement || document.body

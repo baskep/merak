@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { Radio } from 'antd'
-import type { RadioChangeEvent } from 'antd'
 import dayjs from 'dayjs'
 import { useRequest } from 'ahooks'
 import { isEmpty } from 'lodash'
@@ -17,14 +16,7 @@ import RuleContent from '@/components/rule-content'
 import CommercialLoansTable from '@/components/home-loans/loans-table'
 
 import { submitCommercialLoans, submitSyndicatedLoans, submitRepayLoans } from '@/service/home-loans'
-import { RuleItem } from '@/types/common-interface'
 import { commercialLoansRule } from '@/config/home-loans'
-import {
-  LoansField,
-  LoansInfo,
-  LoansResponse,
-  requestField,
-} from '@/types/loans-interface'
 
 import styles from './index.module.less'
 
@@ -45,12 +37,12 @@ const defaultCommercialLoansRes = {
   monthAmountArr: [],
 }
 
-const HomeLoans = (): React.ReactNode => {
-  const [activeKey, setActiveKey] = useState<string>('3')
-  const [loansInfoData, setLoansInfoData] = useState<LoansInfo | null>()
-  const [loansRes, setLoansRes] = useState<LoansResponse>(defaultCommercialLoansRes)
-  const [requestCacheParams, setRequestCacheParams] = useState<requestField>()
-  const [rule] = useState<RuleItem[]>(commercialLoansRule)
+const HomeLoans = () => {
+  const [activeKey, setActiveKey] = useState('3')
+  const [loansInfoData, setLoansInfoData] = useState()
+  const [loansRes, setLoansRes] = useState(defaultCommercialLoansRes)
+  const [requestCacheParams, setRequestCacheParams] = useState()
+  const [rule] = useState(commercialLoansRule)
 
   useEffect(() => {
     if (
@@ -69,7 +61,7 @@ const HomeLoans = (): React.ReactNode => {
         loanType,
         publicAmount,
         publicRateValue,
-      } = requestCacheParams as any
+      } = requestCacheParams
 
       const { totalAllInterest, monthAmountArr, totalRepaymentAmount } = loansRes
 
@@ -119,14 +111,14 @@ const HomeLoans = (): React.ReactNode => {
     },
   })
 
-  const handleChangeLoansClassify = ({ target: { value } }: RadioChangeEvent) => {
+  const handleChangeLoansClassify = ({ target: { value } }) => {
     if (commercialLoading) return
     setActiveKey(value)
     setLoansRes(defaultCommercialLoansRes)
     setLoansInfoData(null)
   }
 
-  const handleSubmitLoans = async (value: LoansField) => {
+  const handleSubmitLoans = async (value) => {
     if (commercialLoading || syndicatedLoading || repayLoading) return
     const { firsthMomth } = value
     const params = {

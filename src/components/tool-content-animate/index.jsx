@@ -12,7 +12,7 @@ import shape09 from '@/assets/img/shape-09.svg'
 import shape10 from '@/assets/img/shape-10.svg'
 import shape11 from '@/assets/img/shape-11.svg'
 
-const ToolContentAnimatie = (): React.ReactNode => {
+const ToolContentAnimatie = () => {
   return (
     <div className={styles.backgroundFix}>
       <img src={shape01.src} className={styles.shape_01}/>

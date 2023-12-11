@@ -27,8 +27,4 @@ const commercialLoansRule = [{
   ],
 }]
 
-const commercialLoansInfoConfig = [{
-
-}]
-
 export { commercialLoansRule }

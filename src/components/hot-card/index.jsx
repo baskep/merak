@@ -4,7 +4,7 @@ import Weibo from '@/icons/weibo'
 
 import styles from './index.module.less'
 
-const HotCard = (): React.ReactNode => {
+const HotCard = () => {
   return (
     <div className={styles.hot_card}>
       <div className={styles.hot_card_content}>

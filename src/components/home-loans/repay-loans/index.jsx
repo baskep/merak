@@ -16,8 +16,6 @@ import {
 
 import dayjs from 'dayjs'
 
-import { LoansField, PeriodsField, LoansProps } from '@/types/loans-interface'
-
 import styles from './index.module.less'
 
 // 表单初始化值
@@ -40,12 +38,12 @@ const loanType = [{
   label: '等额本金(金额逐月减少)',
 }]
 
-const RepayLoans: React.FC<LoansProps> = ({
+const RepayLoans = ({
   loading,
   onSubmitLoans,
-}): React.ReactNode => {
+}) => {
 
-  const [periods, setPeriods] = useState<PeriodsField[]>([])
+  const [periods, setPeriods] = useState([])
 
   const [messageApi, contextHolder] = message.useMessage()
 
@@ -60,8 +58,8 @@ const RepayLoans: React.FC<LoansProps> = ({
     setPeriods(_periods)
   }, [])
 
-  const handleSubmitLoans = (value: LoansField) => {
-    const { amount, repayAmount } = value as any
+  const handleSubmitLoans = (value) => {
+    const { amount, repayAmount } = value
     if (repayAmount >= amount) {
       messageApi.open({
         type: 'error',
@@ -85,7 +83,7 @@ const RepayLoans: React.FC<LoansProps> = ({
         >
           <Row>
             <Col span={11}>
-              <Form.Item<LoansField>
+              <Form.Item
                 labelCol={{ span: 8 }}
                 label="剩余总贷款金额(万元)"
                 name="amount"
@@ -99,7 +97,7 @@ const RepayLoans: React.FC<LoansProps> = ({
               </Form.Item>
             </Col>
             <Col span={11} offset={2}>
-              <Form.Item<LoansField>
+              <Form.Item
                 labelCol={{ span: 8 }}
                 label="贷款期数"
                 name="periods"
@@ -115,7 +113,7 @@ const RepayLoans: React.FC<LoansProps> = ({
 
           <Row>
             <Col span={11}>
-              <Form.Item<LoansField>
+              <Form.Item
                 labelCol={{ span: 8 }}
                 label="提前还款金额(万元)"
                 name="repayAmount"
@@ -129,7 +127,7 @@ const RepayLoans: React.FC<LoansProps> = ({
               </Form.Item>
             </Col>
             <Col span={11} offset={2}>
-              <Form.Item<LoansField>
+              <Form.Item
                 labelCol={{ span: 8 }}
                 label="下次还款月份"
                 name="firsthMomth"
@@ -145,7 +143,7 @@ const RepayLoans: React.FC<LoansProps> = ({
           </Row>
           <Row>
             <Col span={11}>
-              <Form.Item<LoansField>
+              <Form.Item
                 labelCol={{ span: 8 }}
                 label="贷款方式"
                 name="loanType"
@@ -158,7 +156,7 @@ const RepayLoans: React.FC<LoansProps> = ({
               </Form.Item>
             </Col>
             <Col span={11} offset={2}>
-              <Form.Item<LoansField>
+              <Form.Item
                 labelCol={{ span: 8 }}
                 label="贷款利率%"
                 name="rateValue"

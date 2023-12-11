@@ -1,6 +1,4 @@
-import { LoansField } from '@/types/loans-interface'
-
-export const submitCommercialLoans = async (formData: LoansField) => {
+export const submitCommercialLoans = async (formData) => {
   try {
     const res = await fetch('/api/home-loans/commercial-loans', {
       method: 'post',
@@ -17,7 +15,7 @@ export const submitCommercialLoans = async (formData: LoansField) => {
   }
 }
 
-export const submitSyndicatedLoans = async (formData: LoansField) => {
+export const submitSyndicatedLoans = async (formData) => {
   try {
     const res = await fetch('/api/home-loans/syndicated-loans', {
       method: 'post',
@@ -34,7 +32,7 @@ export const submitSyndicatedLoans = async (formData: LoansField) => {
   }
 }
 
-export const submitRepayLoans = async (formData: LoansField) => {
+export const submitRepayLoans = async (formData) => {
   try {
     const res = await fetch('/api/home-loans/repay-loans', {
       method: 'post',

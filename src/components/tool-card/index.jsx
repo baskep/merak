@@ -4,7 +4,7 @@ import { BiChevronRightCircle } from 'react-icons/bi'
 
 import styles from './index.module.less'
 
-const ToolCard = (): React.ReactNode => {
+const ToolCard = () => {
   return (
     <div className={styles.tool_card} >
       <div className={styles.card_item_content}>

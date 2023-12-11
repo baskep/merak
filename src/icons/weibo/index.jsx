@@ -1,4 +1,4 @@
-const Weather = (): React.ReactNode => {
+const Weather = () => {
   return (
     <svg
       className="icon"

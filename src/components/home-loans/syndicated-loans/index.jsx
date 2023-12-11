@@ -4,8 +4,6 @@ import { useEffect, useState } from 'react'
 import { Form, Input, InputNumber, Select, DatePicker, Button, Row, Col } from 'antd'
 import dayjs from 'dayjs'
 
-import { LoansField, PeriodsField, LoansProps } from '@/types/loans-interface'
-
 import styles from './index.module.less'
 
 // 贷款方式
@@ -35,12 +33,9 @@ const initialValues = {
   publicRateValue: 3.1,
 }
 
-const SyndicatedLoans: React.FC<LoansProps> = ({
-  loading,
-  onSubmitLoans,
-}): React.ReactNode => {
+const SyndicatedLoans = ({ loading, onSubmitLoans }) => {
 
-  const [periods, setPeriods] = useState<PeriodsField[]>([])
+  const [periods, setPeriods] = useState([])
 
   const [loansForm] = Form.useForm()
 
@@ -76,7 +71,7 @@ const SyndicatedLoans: React.FC<LoansProps> = ({
         >
           <Row>
             <Col span={11}>
-              <Form.Item<LoansField>
+              <Form.Item
                 labelCol={{ span: 8 }}
                 label="商业贷款金额(万元)"
                 name="amount"
@@ -91,7 +86,7 @@ const SyndicatedLoans: React.FC<LoansProps> = ({
             </Col>
 
             <Col span={11} offset={2}>
-              <Form.Item<LoansField>
+              <Form.Item
                 labelCol={{ span: 8 }}
                 label="商业贷款利率%"
                 name="rateValue"
@@ -107,7 +102,7 @@ const SyndicatedLoans: React.FC<LoansProps> = ({
 
           <Row>
             <Col span={11}>
-              <Form.Item<LoansField>
+              <Form.Item
                 labelCol={{ span: 8 }}
                 label="公积金贷款金额(万元)"
                 name="publicAmount"
@@ -121,7 +116,7 @@ const SyndicatedLoans: React.FC<LoansProps> = ({
               </Form.Item>
             </Col>
             <Col span={11} offset={2}>
-              <Form.Item<LoansField>
+              <Form.Item
                 labelCol={{ span: 8 }}
                 label="公积金贷款利率%"
                 name="publicRateValue"
@@ -136,7 +131,7 @@ const SyndicatedLoans: React.FC<LoansProps> = ({
           </Row>
           <Row>
             <Col span={11}>
-              <Form.Item<LoansField>
+              <Form.Item
                 labelCol={{ span: 8 }}
                 label="贷款方式"
                 name="loanType"
@@ -149,7 +144,7 @@ const SyndicatedLoans: React.FC<LoansProps> = ({
               </Form.Item>
             </Col>
             <Col span={11} offset={2}>
-              <Form.Item<LoansField>
+              <Form.Item
                 labelCol={{ span: 8 }}
                 label="首次还款月份"
                 name="firsthMomth"
@@ -167,7 +162,7 @@ const SyndicatedLoans: React.FC<LoansProps> = ({
 
           <Row>
             <Col span={11}>
-              <Form.Item<LoansField>
+              <Form.Item
                 labelCol={{ span: 8 }}
                 label="利率模式"
                 name="rateType"
@@ -180,7 +175,7 @@ const SyndicatedLoans: React.FC<LoansProps> = ({
               </Form.Item>
             </Col>
             <Col span={11} offset={2}>
-              <Form.Item<LoansField>
+              <Form.Item
                 labelCol={{ span: 8 }}
                 label="贷款期数"
                 name="periods"
