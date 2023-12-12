@@ -9,6 +9,8 @@ import ToolContentLayout from '@/components/tool-content-layout'
 import RuleContent from '@/components/rule-content'
 import { qrcodeRule } from '@/config/qrcode'
 
+import { filterXSS } from '@/utils'
+
 import styles from './index.module.less'
 
 const { TextArea } = Input
@@ -37,7 +39,9 @@ const QrCodeUtil = () => {
       return
     }
 
-    console.log('可以调用')
+    const text = filterXSS(value)
+
+    console.log(text)
   }
 
   return (
