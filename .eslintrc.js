@@ -65,13 +65,13 @@ module.exports = {
     ],
     'eqeqeq': ['error', 'smart'],
     'arrow-spacing': [
-      2,
+      'error',
       {
         'before': true,
         'after': true,
       },
     ],
-    'block-spacing': [2, 'always'],
+    'block-spacing': ['error', 'always'],
     'comma-spacing': [
       2,
       {
@@ -116,7 +116,7 @@ module.exports = {
         },
       },
     ],
-    'semi': [2, 'never'],
+    'semi': ['error', 'never'],
     'semi-spacing': [
       2,
       {
@@ -124,9 +124,9 @@ module.exports = {
         'after': true,
       },
     ],
-    'space-before-blocks': [2, 'always'],
+    'space-before-blocks': ['error', 'always'],
     'no-trailing-spaces': 2,
-    'object-curly-spacing': [2, 'always'],
+    'object-curly-spacing': ['error', 'always'],
     'camelcase': 'off',
     'no-mixed-operators': 'off',
     'jsx-a11y/alt-text': 'off',
@@ -149,7 +149,7 @@ module.exports = {
         'checkLocalVariables': true,
       },
     ],
-    'react/jsx-closing-tag-location': [2],
+    'react/jsx-closing-tag-location': ['error'],
     'react/jsx-closing-bracket-location': [1, 'line-aligned'],
     'react/jsx-key': 'error',
     'react/jsx-wrap-multilines': [
@@ -171,6 +171,8 @@ module.exports = {
         'html': true,
       },
     ],
+    'react/jsx-indent-props': ['error', 2],
+    'react/jsx-max-props-per-line': ['error', { 'maximum': 3 }],
     'react-hooks/rules-of-hooks': 'off',
     'react-hooks/exhaustive-deps': 'off',
   },
