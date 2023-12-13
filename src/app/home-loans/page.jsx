@@ -45,7 +45,7 @@ const metaInfo = {
 }
 
 const HomeLoans = () => {
-  const [activeKey, setActiveKey] = useState('3')
+  const [activeKey, setActiveKey] = useState('1')
   const [loansInfoData, setLoansInfoData] = useState()
   const [loansRes, setLoansRes] = useState(defaultCommercialLoansRes)
   const [requestCacheParams, setRequestCacheParams] = useState()

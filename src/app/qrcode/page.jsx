@@ -2,11 +2,13 @@
 
 import { useState } from 'react'
 import { Input, Button, message } from 'antd'
+import QRCode from 'qrcode'
 
 import MetaInfo from '@/components/meta-info'
 import Header from '@/components/header'
 import ToolContentLayout from '@/components/tool-content-layout'
 import RuleContent from '@/components/rule-content'
+import GenerateResult from '@/components/qrcode/generate-result'
 import { qrcodeRule } from '@/config/qrcode'
 
 import { filterXSS } from '@/utils'
@@ -23,6 +25,7 @@ const metaInfo = {
 
 const QrCodeUtil = () => {
   const [value, setValue] = useState('')
+  const [dataUrl, setDataUrl] = useState('')
   const [messageApi, contextHolder] = message.useMessage()
 
   const handleChangeValue = (e) => {
@@ -30,7 +33,7 @@ const QrCodeUtil = () => {
     setValue(value)
   }
 
-  const handleGenerateQRCode = () => {
+  const handleGenerateQRCode = async () => {
     if (!value) {
       messageApi.open({
         type: 'error',
@@ -40,8 +43,12 @@ const QrCodeUtil = () => {
     }
 
     const text = filterXSS(value)
+    const dataUrl = await QRCode.toDataURL(text, { margin: 1, width: 200 })
+    setDataUrl(dataUrl)
+  }
 
-    console.log(text)
+  const handleClearQRCode = () => {
+    setDataUrl('')
   }
 
   return (
@@ -65,15 +72,21 @@ const QrCodeUtil = () => {
                 <Button
                   type="primary"
                   size="large"
-                  loading={false}
                   onClick={handleGenerateQRCode}
                 >
                   立即生成
+                </Button>
+                <Button
+                  size="large"
+                  onClick={handleClearQRCode}
+                >
+                  清空内容
                 </Button>
               </div>
             </div>
           </div>
         </div>
+        {dataUrl && <GenerateResult dataUrl={dataUrl}/>}
         <RuleContent rule={qrcodeRule} />
       </ToolContentLayout>
     </>
