@@ -3,13 +3,13 @@ import { chain } from 'mathjs'
 import { averageInterest, averageCapital } from 'house-loan-calculator'
 
 // 等额本息计算
-function amountInterestEqual(
+const amountInterestEqual = (
   amount, // 贷款总金额(万元)
   periods, // 贷款总年限
   rate, // 利率
   year, // 起始年份
   month, // 起始月份
-) {
+) => {
   const totalMonth = chain(periods).multiply(12).done()
 
   const res = averageInterest(amount, rate, totalMonth)
@@ -44,13 +44,13 @@ function amountInterestEqual(
 }
 
 // 等额本金计算
-function amountEqual(
+const amountEqual = (
   amount, // 贷款总金额(万元)
   periods, // 贷款总年限
   rate, // 利率
   year, // 起始年份
   month, // 起始月份
-) {
+) => {
   const totalMonth = chain(periods).multiply(12).done()
 
   const res = averageCapital(amount, rate, totalMonth)

@@ -3,7 +3,7 @@ import { chain } from 'mathjs'
 import { houseLoanCalc } from 'house-loan-calculator'
 
 // 等额本息计算
-function amountInterestEqual(
+const amountInterestEqual = (
   amount, // 贷款总金额(万元)
   periods, // 贷款总年限
   rate, // 利率
@@ -11,7 +11,7 @@ function amountInterestEqual(
   month, // 起始月份
   publicAmount, // 公积金贷款金额(万元)
   publicRateValue, // 公积金贷款利率
-) {
+) => {
   const totalMonth = chain(periods).multiply(12).done()
 
   const res = houseLoanCalc(amount, rate, totalMonth, publicAmount, publicRateValue, totalMonth, 'debx')
@@ -48,7 +48,7 @@ function amountInterestEqual(
 }
 
 // 等额本金计算
-function amountEqual(
+const amountEqual = (
   amount, // 贷款总金额(万元)
   periods, // 贷款总年限
   rate, // 利率
@@ -56,7 +56,7 @@ function amountEqual(
   month, // 起始月份
   publicAmount, // 公积金贷款金额(万元)
   publicRateValue, // 公积金贷款利率
-) {
+) => {
   const totalMonth = chain(periods).multiply(12).done()
 
   const res = houseLoanCalc(amount, rate, totalMonth, publicAmount, publicRateValue, totalMonth, 'debj')

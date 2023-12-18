@@ -1,11 +1,11 @@
-function filterXSS(str) {
+const filterXSS = (str) => {
   return str.replace(/&/g, '&amp;').
     replace(/</g, '&lt;').
     replace(/"/g, '&quot;').
     replace(/'/g, '&#039;')
 }
 
-function downloadBase64File(content, fileName) {
+const downloadBase64File = (content, fileName) => {
   let blob = base64ToBlob(content)
   const nodeElm = document.createElement('a')
   nodeElm.href = window.URL.createObjectURL(blob)
@@ -16,7 +16,7 @@ function downloadBase64File(content, fileName) {
   document.body.removeChild(nodeElm)
 }
 
-function base64ToBlob(code) {
+const base64ToBlob = (code) => {
   let parts = code.split(';base64,')
   let contentType = parts[0].split(':')[1]
   let raw = window.atob(parts[1]) // 解码base64得到二进制字符串
