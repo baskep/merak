@@ -8,30 +8,40 @@ datasource db {
 }
 
 model Category {
-  id    BigInt     @id @default(autoincrement())
-  name  String?
+  id   BigInt  @id @default(autoincrement())
+  name String?
+  Tool Tool[]
+
+  @@map("category")
 }
 
 model Tool {
-  id            BigInt     @id @default(autoincrement())
-  name          String?
-  introduce     String?
-  url           String?
-  title         String?
-  keywords      String?
-  description   String?
-  category      Category   @relation(fields: [name], references: [id])
-  imageUrl      String?
+  id          BigInt   @id @default(autoincrement())
+  name        String?
+  introduce   String?
+  url         String?
+  title       String?
+  keywords    String?
+  description String?
+  category    Category @relation(fields: [categoryId], references: [id])
+  imageUrl    String?
+  categoryId  BigInt
+
+  @@map("tool")
 }
 
 model Maxim {
-  id    BigInt     @id @default(autoincrement())
-  text  String?
+  id   BigInt  @id @default(autoincrement())
+  text String?
+
+  @@map("maxim")
 }
 
 model Link {
-  id        BigInt     @id @default(autoincrement())
-  name      String?
-  url       String?
-  imageUrl  String?
+  id       BigInt  @id @default(autoincrement())
+  name     String?
+  url      String?
+  imageUrl String?
+
+  @@map("link")
 }
