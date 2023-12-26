@@ -13,15 +13,14 @@ const metaInfo = {
 
 const Home = async () => {
 
-  const res = await getAllTool()
+  const allTool = await getAllTool()
 
-  console.log(res)
   return (
     <>
       <MetaInfo {...metaInfo} />
       <Header />
       <HeaderSearch />
-      <HomePage />
+      <HomePage allTool={allTool.data || []}/>
     </>
   )
 }
