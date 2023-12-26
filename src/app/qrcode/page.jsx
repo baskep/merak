@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Input, Button, message } from 'antd'
 import QRCode from 'qrcode'
 
@@ -9,6 +9,7 @@ import Header from '@/components/header'
 import ToolContentLayout from '@/components/tool-content-layout'
 import RuleContent from '@/components/rule-content'
 import GenerateResult from '@/components/qrcode/generate-result'
+import { useToolInfo } from '@/hooks/use-tool-info'
 import { qrcodeRule } from '@/config/qrcode'
 
 import { filterXSS } from '@/utils'
@@ -26,6 +27,7 @@ const metaInfo = {
 const QrCodeUtil = () => {
   const [value, setValue] = useState('')
   const [dataUrl, setDataUrl] = useState('')
+  const [toolInfo] = useToolInfo()
   const [messageApi, contextHolder] = message.useMessage()
 
   const handleChangeValue = (e) => {

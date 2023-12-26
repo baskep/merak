@@ -28,7 +28,7 @@ const StyledComponentsRegistry = ({ children }) => {
   })
 
   return (
-    <StyleProvider >
+    <StyleProvider>
       <ConfigProvider
         theme={{
           token: {
