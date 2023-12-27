@@ -6,7 +6,8 @@ const useToolInfo = () => {
 
   const getToolInfoRes = async () => {
     const res = await getToolInfo(location.pathname)
-    console.log(res)
+    const data = res.data || {}
+    setToolInfo(data)
   }
 
   useEffect(() => {

@@ -17,6 +17,7 @@ import RuleContent from '@/components/rule-content'
 import CommercialLoansTable from '@/components/home-loans/loans-table'
 
 import { submitCommercialLoans, submitSyndicatedLoans, submitRepayLoans } from '@/service/home-loans'
+import { useToolInfo } from '@/hooks/use-tool-info'
 import { commercialLoansRule } from '@/config/home-loans'
 
 import styles from './index.module.less'
@@ -45,6 +46,7 @@ const metaInfo = {
 }
 
 const HomeLoans = () => {
+  const [toolInfo] = useToolInfo()
   const [activeKey, setActiveKey] = useState('1')
   const [loansInfoData, setLoansInfoData] = useState()
   const [loansRes, setLoansRes] = useState(defaultCommercialLoansRes)
@@ -153,7 +155,7 @@ const HomeLoans = () => {
     <>
       <MetaInfo {...metaInfo} />
       <Header isDefaultShow={true} />
-      <ToolContentLayout>
+      <ToolContentLayout toolInfo={toolInfo}>
         <div className={`${styles.home_loans_content} common-card-wrap`}>
           <div className="common-card-content">
             <div className={styles.loans_classify}>

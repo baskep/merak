@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Input, Button, message } from 'antd'
 import QRCode from 'qrcode'
 
@@ -25,9 +25,9 @@ const metaInfo = {
 }
 
 const QrCodeUtil = () => {
+  const [toolInfo] = useToolInfo()
   const [value, setValue] = useState('')
   const [dataUrl, setDataUrl] = useState('')
-  const [toolInfo] = useToolInfo()
   const [messageApi, contextHolder] = message.useMessage()
 
   const handleChangeValue = (e) => {
@@ -58,7 +58,7 @@ const QrCodeUtil = () => {
       <MetaInfo {...metaInfo} />
       {contextHolder}
       <Header isDefaultShow={true} />
-      <ToolContentLayout>
+      <ToolContentLayout toolInfo={toolInfo}>
         <div className={`${styles.home_loans_content} common-card-wrap`}>
           <div className="common-card-content">
             <div className={styles.qrcode_form}>
