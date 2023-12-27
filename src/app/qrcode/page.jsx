@@ -59,7 +59,7 @@ const QrCodeUtil = () => {
       {contextHolder}
       <Header isDefaultShow={true} />
       <ToolContentLayout toolInfo={toolInfo}>
-        <div className={`${styles.home_loans_content} common-card-wrap`}>
+        <div className="common-card-wrap">
           <div className="common-card-content">
             <div className={styles.qrcode_form}>
               <TextArea
