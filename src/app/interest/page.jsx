@@ -3,6 +3,7 @@
 import MetaInfo from '@/components/meta-info'
 import Header from '@/components/header'
 import ToolContentLayout from '@/components/tool-content-layout'
+import InterestForm from '@/components/interest/interest-form'
 
 import { useToolInfo } from '@/hooks/use-tool-info'
 
@@ -24,7 +25,7 @@ const Interest = () => {
       <ToolContentLayout toolInfo={toolInfo}>
         <div className="common-card-wrap">
           <div className="common-card-content">
-          23
+            <InterestForm />
           </div>
         </div>
       </ToolContentLayout>
