@@ -16,11 +16,11 @@ const nextConfig = () => {
     publicRuntimeConfig: env,
     compiler: {
       // Remove `console.*` output except `console.error`
-      removeConsole: isProd
-        ? {
+      removeConsole: isProd ?
+        {
           exclude: ['error'],
-        }
-        : false,
+        } :
+        false,
       // Uncomment this to suppress all logs.
       // removeConsole: true,
     },
@@ -33,7 +33,6 @@ const nextConfig = () => {
     },
     serverComponentsExternalPackages: ["@prisma/client"],
     webpack(config) {
-      //  Source: https://cwtuan.blogspot.com/2022/10/disable-css-module-in-nextjs-v1231-sept.html
       config.module.rules.forEach((rule) => {
         const { oneOf } = rule
         if (oneOf) {

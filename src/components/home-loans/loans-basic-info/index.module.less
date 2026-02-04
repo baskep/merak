@@ -1,0 +1,51 @@
+.loans_basic_info {
+  border-radius: 4px;
+  border: 1px solid #f0f0f0;
+  border-top: 0;
+  border-right: 0;
+
+  .loans_info_item {
+    display: flex;
+
+    .loans_info_detail {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      border-top: 1px solid #f0f0f0;
+      width: 50%;
+    }
+
+    .label,
+    .text {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-right: 1px solid #f0f0f0;
+      height: 55px;
+      font-size: 16px;
+    }
+
+    .label {
+      width: 30%;
+      background-color: #fafafa;
+    }
+    
+    .text {
+      width: 70%;
+    }
+  }
+
+  .loans_info_loading {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #ffffff;
+    opacity: .5;
+    z-index: 2;
+  }
+}
